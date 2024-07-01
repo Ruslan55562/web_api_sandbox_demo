@@ -25,8 +25,6 @@ namespace CalculatorStepDefinitions.Steps
         {
             Assert.IsTrue(DBHook.IsConnectionOpen(), "Database connection should be open");
             DBHook.CloseConnection();
-            DBHook.CloseConnection();
-            Assert.IsTrue(DBHook.IsConnectionOpen(), "Database connection should be open");
         }
     }
 }
