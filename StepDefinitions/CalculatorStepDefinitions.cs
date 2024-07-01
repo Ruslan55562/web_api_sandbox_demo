@@ -1,44 +1,32 @@
-namespace web_api_sandbox_demo_UI.StepDefinitions
+using NUnit.Framework;
+using SpecFlowProject;
+using web_api_sandbox_demo_UI.Hooks;
+
+namespace CalculatorStepDefinitions.Steps
 {
     [Binding]
-    public sealed class CalculatorStepDefinitions
+    public class DatabaseConnectionSteps
     {
-        // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
+        private readonly ScenarioContext _scenarioContext;
 
-        [Given("the first number is (.*)")]
-        public void GivenTheFirstNumberIs(int number)
+        public DatabaseConnectionSteps(ScenarioContext scenarioContext)
         {
-            //TODO: implement arrange (precondition) logic
-            // For storing and retrieving scenario-specific data see https://go.specflow.org/doc-sharingdata
-            // To use the multiline text or the table argument of the scenario,
-            // additional string/Table parameters can be defined on the step definition
-            // method. 
-
-            throw new PendingStepException();
+            _scenarioContext = scenarioContext;
         }
 
-        [Given("the second number is (.*)")]
-        public void GivenTheSecondNumberIs(int number)
+        [Given(@"the database connection is open")]
+        public void GivenTheDatabaseConnectionIsOpen()
         {
-            //TODO: implement arrange (precondition) logic
-
-            throw new PendingStepException();
+            DBHook.OpenConnection();
         }
 
-        [When("the two numbers are added")]
-        public void WhenTheTwoNumbersAreAdded()
+        [Then(@"verify the connection state")]
+        public void ThenVerifyTheConnectionState()
         {
-            //TODO: implement act (action) logic
-
-            throw new PendingStepException();
-        }
-
-        [Then("the result should be (.*)")]
-        public void ThenTheResultShouldBe(int result)
-        {
-            //TODO: implement assert (verification) logic
-
-            throw new PendingStepException();
+            Assert.IsTrue(DBHook.IsConnectionOpen(), "Database connection should be open");
+            DBHook.CloseConnection();
+            DBHook.CloseConnection();
+            Assert.IsTrue(DBHook.IsConnectionOpen(), "Database connection should be open");
         }
     }
 }
