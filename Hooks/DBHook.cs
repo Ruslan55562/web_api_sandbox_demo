@@ -1,7 +1,5 @@
 ﻿using java.sql;
-using NUnit.Framework;
 using SpecFlowProject;
-using System.Data;
 
 namespace web_api_sandbox_demo_UI.Hooks
 {
@@ -46,7 +44,7 @@ namespace web_api_sandbox_demo_UI.Hooks
 
         public static bool IsConnectionOpen()
         {
-                return _connection != null && !_connection.isClosed();
+            return _connection != null && !_connection.isClosed();
         }
     }
 }
