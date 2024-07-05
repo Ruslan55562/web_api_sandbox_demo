@@ -1,6 +1,8 @@
 ﻿using BoDi;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using web_api_sandbox_demo_UI.CommonPageSpace;
 
 namespace web_api_sandbox_demo_UI_Drivers
 {
@@ -12,6 +14,8 @@ namespace web_api_sandbox_demo_UI_Drivers
         private IWebDriver _driver;
         private readonly DriverFactory _driverFactory;
         private readonly string ?_baseUrl;
+        private WebDriverWait _wait;
+        private readonly CommonPage _commonPage;
 
         public DriverManager(IObjectContainer objectContainer)
         {
@@ -22,6 +26,7 @@ namespace web_api_sandbox_demo_UI_Drivers
                                     .Build();
             _driverFactory = new DriverFactory();
             _baseUrl = _configuration["BrowserSettings:BaseUrl"];
+            _commonPage = new CommonPage();
         }
 
         [BeforeScenario]
@@ -40,6 +45,27 @@ namespace web_api_sandbox_demo_UI_Drivers
         public void GoToBasePage()
         {
             _driver.Navigate().GoToUrl(_baseUrl);
+            WaitForBasePageToLoad();
+        }
+
+        public void WaitForBasePageToLoad()
+        {
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement element = _wait.Until(drv => drv.FindElement(By.XPath(_commonPage.PageTitle)));
+            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(_commonPage.PageTitle)));
+            AddJsWait(1000);
+        }
+
+        private void AddJsWait(int milliseconds)
+        {
+            var js = (IJavaScriptExecutor)_driver;
+            js.ExecuteAsyncScript($"window.setTimeout(arguments[arguments.length - 1], {milliseconds});");
+        }
+  
+        public IWebDriver GetDriver()
+        {
+            _driver = _objectContainer.Resolve<IWebDriver>("driver");
+            return _driver;
         }
 
         [AfterScenario]

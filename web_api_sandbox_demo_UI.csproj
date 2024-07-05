@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="IKVM" Version="8.8.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
@@ -23,9 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="CommonPage\" />
     <Folder Include="Helpers\" />
-    <Folder Include="POM\" />
   </ItemGroup>
 
   <ItemGroup>

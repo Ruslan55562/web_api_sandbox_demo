@@ -1,4 +1,5 @@
 ﻿using java.sql;
+using NUnit.Framework;
 using SpecFlowProject;
 
 namespace web_api_sandbox_demo_UI.Hooks
@@ -21,7 +22,7 @@ namespace web_api_sandbox_demo_UI.Hooks
             }
             catch (SQLException ex)
             {
-                Console.WriteLine("Exception was thrown when connecting to DB " + ex.Message);
+                TestContext.WriteLine("Exception was thrown when connecting to DB " + ex.Message);
                 throw;
             }
         }
@@ -37,7 +38,7 @@ namespace web_api_sandbox_demo_UI.Hooks
             }
             catch (SQLException ex)
             {
-                Console.WriteLine("There is an exception when trying to close connection " + ex.Message);
+                TestContext.WriteLine("There is an exception when trying to close connection " + ex.Message);
                 throw;
             }
         }
@@ -45,6 +46,11 @@ namespace web_api_sandbox_demo_UI.Hooks
         public static bool IsConnectionOpen()
         {
             return _connection != null && !_connection.isClosed();
+        }
+
+        public static bool IsConnectionClosed()
+        {
+            return _connection.isClosed();
         }
     }
 }
