@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using System.Globalization;
+using web_api_sandbox_demo_UI.Hooks;
 using web_api_sandbox_demo_UI.POM.HomePage;
 using web_api_sandbox_demo_UI_Drivers;
 
@@ -43,10 +45,6 @@ namespace HomePageSteps.Steps
         [Then(@"the news section title '([^']*)' is above the background")]
         public void ThenTheNewsSectionTitleIsAboveTheBackground(string title) =>
             _homePage.VerifyNewsTitleIsAboveBackground(title);
-
-
-
-
 
     }
 }

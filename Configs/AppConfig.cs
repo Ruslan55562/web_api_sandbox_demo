@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
 
 namespace SpecFlowProject
 {
@@ -6,6 +7,7 @@ namespace SpecFlowProject
     {
         private static readonly Lazy<IConfiguration> _configuration = new(() => new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
                 .Build());
 
         public static string? GetConnectionString()
@@ -15,12 +17,20 @@ namespace SpecFlowProject
 
         public static string? GetUser()
         {
-            return _configuration.Value["HsqldbSettings:User"];
+            return Environment.GetEnvironmentVariable("HSQLDB_USER") ?? _configuration.Value["HsqldbSettings:User"];
         }
 
         public static string? GetPassword()
         {
-            return _configuration.Value["HsqldbSettings:Password"];
+            var password = Environment.GetEnvironmentVariable("HSQLDB_PASSWORD");
+
+            if (password == "empty")
+                password = string.Empty;
+
+            if (password == null)
+                password = _configuration.Value["HsqldbSettings:Password"];
+
+            return password;
         }
     }
 }
