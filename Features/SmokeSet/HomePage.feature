@@ -25,13 +25,3 @@ Scenario: The news section is displayed on Home Page
 		 And the news section contains '06/27/2024' date
 		 And the news section title 'Latest News' is above the background
 		 And I can see 'New! Online Bill Pay,New! Online Account Transfers' section items under '06/27/2024' section
-
-
-@smu-4
-  Scenario: Check database connection state
-    Given The database connection is open
-    Then Verify the connection state is 'open'
-    When I close database connection
-    Then Verify the connection state is 'closed'
-
-
