@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using web_api_sandbox_demo_UI.CommonPageSpace;
+using web_api_sandbox_demo_UI.Helpers;
+using web_api_sandbox_demo_UI.Hooks;
 
 namespace web_api_sandbox_demo_UI_Drivers
 {
@@ -14,8 +15,6 @@ namespace web_api_sandbox_demo_UI_Drivers
         private IWebDriver _driver;
         private readonly DriverFactory _driverFactory;
         private readonly string ?_baseUrl;
-        private WebDriverWait _wait;
-        private readonly CommonPage _commonPage;
 
         public DriverManager(IObjectContainer objectContainer)
         {
@@ -26,16 +25,23 @@ namespace web_api_sandbox_demo_UI_Drivers
                                     .Build();
             _driverFactory = new DriverFactory();
             _baseUrl = _configuration["BrowserSettings:BaseUrl"];
-            _commonPage = new CommonPage();
+        }
+
+        [BeforeTestRun]
+        public static void BeforeTestRun()
+        {
+            ReportHelper.InitializeReport();
         }
 
         [BeforeScenario]
-        public void SelectBrowser()
+        public void Initialize()
         {
-            Initialize();
+            SelectBrowser();
+            DBHook.OpenConnection();
+            ReportHelper.CreateTest();
         }
 
-        public void Initialize()
+        public void SelectBrowser()
         {
             string browser = _configuration["BrowserSettings:Browser"]?.ToLower() ?? "chrome";
             _driver = _driverFactory.InitDriver(browser);
@@ -45,21 +51,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         public void GoToBasePage()
         {
             _driver.Navigate().GoToUrl(_baseUrl);
-            WaitForBasePageToLoad();
-        }
-
-        public void WaitForBasePageToLoad()
-        {
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            IWebElement element = _wait.Until(drv => drv.FindElement(By.XPath(_commonPage.PageTitle)));
-            _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(By.XPath(_commonPage.PageTitle)));
-            AddJsWait(1000);
-        }
-
-        private void AddJsWait(int milliseconds)
-        {
-            var js = (IJavaScriptExecutor)_driver;
-            js.ExecuteAsyncScript($"window.setTimeout(arguments[arguments.length - 1], {milliseconds});");
+            WaitHelper.WaitForBasePageToLoad(_driver);
         }
   
         public IWebDriver GetDriver()
@@ -73,6 +65,16 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             if (_driver != null)
                 _driver.Quit();
+
+            DBHook.CleanupUsers();
+            DBHook.CloseConnection();
+            ReportHelper.ProduceReport();
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            ReportHelper.Flush();
         }
     }
 }

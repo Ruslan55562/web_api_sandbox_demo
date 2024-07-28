@@ -1,6 +1,7 @@
 ﻿using BoDi;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Internal;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 using web_api_sandbox_demo_UI_Drivers;
 
 namespace web_api_sandbox_demo_UI.CommonPageSpace
@@ -27,11 +28,23 @@ namespace web_api_sandbox_demo_UI.CommonPageSpace
             _driver.FindElement(By.XPath(locator)).Click();
         }
 
+        public void ClickButtonWithWait(string locator, TimeSpan waitDuration)
+        {
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            var button = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
+            var endTime = DateTime.Now.Add(waitDuration);
+            button.Click();
+            new WebDriverWait(_driver, waitDuration).Until(drv => DateTime.Now >= endTime);
+        }
+
         public void SendTextToInput(string locator,string text)
         {
-            IWebElement driver = _driver.FindElement(By.XPath(locator));
-            driver.SendKeys(Keys.Control + "a");
-            driver.SendKeys(text);
+            WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement element = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
+            new WebDriverWait(_driver, TimeSpan.FromMilliseconds(250)).Until(d => true);
+
+            element.Clear();
+            element.SendKeys(text); ;
 
         }
     }
