@@ -10,6 +10,10 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
         private readonly HomePageMap _homePageMap;
 
         private string newsDateTime = "//ul[@class='events']/li[@class='captionthree']";
+        private string userNameField = "//input[@name='username']";
+        private string passwordField = "//input[@name='password']";
+        private string logInButton = "//input[@value='Log In']";
+
         private string LoginFormTitle(string header) => $"//div[@id='leftPanel']/h2[.='{header}']";
         private string RightPanelListElements(string element) => $"//div[@id='rightPanel']//li[.='{element}']";
         private string SectionItemsUnderService(string sectionName, string item) =>
@@ -50,6 +54,12 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
         public HomePage VerifyNewsTitleIsAboveBackground(string title)
         {
             _homePageAssertions.VerifyNewsTitleIsAboveBackground(title, RightPanelNewsTitle);
+            return this;
+        }
+
+        public HomePage LogIntoApplication(string username, string password)
+        {
+            _homePageMap.LogIntoApplication(username, password, userNameField,passwordField,logInButton);
             return this;
         }
 

@@ -48,4 +48,3 @@ Scenario: The user isn't created if password isn't confirmed
 		| Emily       | Smith       | 456 Oak Avenue | Oakville | CA    | 94016    | 408-555-9876 | 987-65-4321 | emily.smith | SecurePassword123 | Pass123 |
 		And I send the registration form
 	Then The error message 'Passwords did not match' is displayed
-

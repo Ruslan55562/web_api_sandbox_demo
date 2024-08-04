@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\UserDataTests\" />
+    <Folder Include="Features\UserDataSet\" />
+    <Folder Include="Features\AccountStatementSet\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,7 +1,6 @@
 ﻿using BoDi;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using web_api_sandbox_demo_UI.Helpers;
 using web_api_sandbox_demo_UI.Hooks;
 

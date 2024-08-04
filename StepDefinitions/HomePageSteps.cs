@@ -20,6 +20,10 @@ namespace HomePageSteps.Steps
             return new List<string>(commaSeparatedList.Split(','));
         }
 
+        [Given(@"I am logged in with username '([^']*)' and password '([^']*)'")]
+        public void GivenIAmLoggedInWithUsernameAndPassword(string username, string password) =>
+            _homePage.LogIntoApplication(username, password);
+
         [Then(@"I can see login form with '([^']*)' header")]
         public void ThenICanSeeLoginFormWithHeader(string header) =>
             _homePage.VerifyLoginFormWithHeaderIsDisplayed(header);
@@ -32,15 +36,12 @@ namespace HomePageSteps.Steps
         public void ThenICanSeeSectionsUnderService(List<string> sectionItems, string serviceName) =>
             _homePage.VerifySectionItemsUnderService(sectionItems, serviceName);
 
-
         [Then(@"the news section contains '([^']*)' date")]
         public void ThenTheNewsSectionContainsDate(string currentDate) =>
             _homePage.VerifyNewsSectionDateTime(currentDate);
 
-
         [Then(@"the news section title '([^']*)' is above the background")]
         public void ThenTheNewsSectionTitleIsAboveTheBackground(string title) =>
             _homePage.VerifyNewsTitleIsAboveBackground(title);
-
     }
 }

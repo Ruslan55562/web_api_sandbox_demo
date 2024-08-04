@@ -31,7 +31,6 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
         public void WhenIClickOnButtonUnderAccountServicesPanel(string optionName) =>
             _registerPage.ClickOnLogOutButton(optionName);
 
-
         [Then(@"I can see welcome '([^']*)' message")]
         public void ThenICanSeeWelcomeMessage(string welcomeMessage) =>
             _registerPage.VerifyWelcomeHeaderMessageIsDisplayed(welcomeMessage);
@@ -43,6 +42,5 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
         [Then(@"The error message '([^']*)' is displayed")]
         public void ThenTheErrorMessageIsDisplayed(string message) =>
             _registerPage.VerifyFormErrorMessage(message);
-
     }
 }

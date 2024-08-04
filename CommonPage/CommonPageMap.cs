@@ -2,6 +2,7 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using System.Collections.ObjectModel;
 using web_api_sandbox_demo_UI_Drivers;
 
 namespace web_api_sandbox_demo_UI.CommonPageSpace
@@ -21,6 +22,11 @@ namespace web_api_sandbox_demo_UI.CommonPageSpace
         public IWebElement GetElement(string locator)
         {
             return _driver.FindElement(By.XPath(locator));
+        }
+
+        public ReadOnlyCollection<IWebElement> GetElements(string locator)
+        {
+            return _driver.FindElements(By.XPath(locator));
         }
 
         public void ClickButton(string locator)
