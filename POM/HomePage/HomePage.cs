@@ -63,6 +63,12 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
             return this;
         }
 
+        public HomePage ClickOnHeaderNavigationButton(string buttonName)
+        {
+            _homePageMap.ClickButton(HeaderNavigationButtons(buttonName));
+            return this;
+        }
+
         private string GetDateFromField()
         {
             return DateTime.Today.ToString(_homePageMap.GetElement(newsDateTime).Text, CultureInfo.InvariantCulture);

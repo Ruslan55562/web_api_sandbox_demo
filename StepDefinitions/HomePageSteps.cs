@@ -24,6 +24,10 @@ namespace HomePageSteps.Steps
         public void GivenIAmLoggedInWithUsernameAndPassword(string username, string password) =>
             _homePage.LogIntoApplication(username, password);
 
+        [When(@"I click on '([^']*)' navigation button")]
+        public void WhenIClickOnNavigationButton(string buttonName) =>
+             _homePage.ClickOnHeaderNavigationButton(buttonName);
+
         [Then(@"I can see login form with '([^']*)' header")]
         public void ThenICanSeeLoginFormWithHeader(string header) =>
             _homePage.VerifyLoginFormWithHeaderIsDisplayed(header);

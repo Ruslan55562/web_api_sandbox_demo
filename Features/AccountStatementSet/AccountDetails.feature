@@ -10,10 +10,10 @@ Background:
 
 @ADU-1
 Scenario: User is able to see account details
-	When I click on '1' account number link
+	When I click on '9' account number link
 	Then I can see account details with the next data:
 		| Account Number | Account Type | Balance   | Available |
-		| 12345          | CHECKING     | -$2300.00 | $0.00     |
+		| 13233          | CHECKING     | $100.00   | $100.00   |
 	And I can see account activity with the next data:
 		| Activity Period | Type |
 		| All             | All  |
