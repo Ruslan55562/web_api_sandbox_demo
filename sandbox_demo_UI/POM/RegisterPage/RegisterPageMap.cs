@@ -1,6 +1,6 @@
 ﻿using BoDi;
+using sandbox_demo_UI.Map;
 using web_api_sandbox_demo_UI.CommonPageSpace;
-using web_api_sandbox_demo_UI.Helpers;
 
 namespace web_api_sandbox_demo_UI.POM.RegisterPage
 {

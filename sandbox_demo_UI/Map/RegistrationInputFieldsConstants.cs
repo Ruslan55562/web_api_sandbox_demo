@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace web_api_sandbox_demo_UI.Helpers
+namespace sandbox_demo_UI.Map
 {
     public static class RegistrationInputFieldsConstants
     {
