@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using web_api_sandbox_demo_UI.Helpers;
 using web_api_sandbox_demo_UI.Hooks;
+using web_api_sandbox_demo_UI_Configs;
 
 namespace web_api_sandbox_demo_UI_Drivers
 {
@@ -18,10 +19,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         public DriverManager(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
-            _configuration = new ConfigurationBuilder()
-                                    .SetBasePath(Directory.GetCurrentDirectory())
-                                    .AddJsonFile("appsettings.json")
-                                    .Build();
+            _configuration = AppConfig.GetConfiguration();
             _driverFactory = new DriverFactory();
             _baseUrl = _configuration["BrowserSettings:BaseUrl"];
         }

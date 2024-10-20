@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace SpecFlowProject
+namespace web_api_sandbox_demo_UI_Configs
 {
     public static class AppConfig
     {
@@ -31,6 +31,11 @@ namespace SpecFlowProject
                 password = _configuration.Value["HsqldbSettings:Password"];
 
             return password;
+        }
+
+        public static IConfiguration GetConfiguration()
+        {
+            return _configuration.Value;
         }
     }
 }

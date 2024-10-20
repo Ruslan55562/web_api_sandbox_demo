@@ -11,7 +11,7 @@ Background:
 Scenario: The Home page is displayed
 	Then I can see login form with 'Customer Login' header
 		And I can see 'ATM Services,Online Services' sections
-		And I can see '06/27/2024' sections
+		And I can see latest news sections
 
 @SMU-2
 Scenario: The services sections are displayed on the Home Page
@@ -22,6 +22,6 @@ Scenario: The services sections are displayed on the Home Page
 @SMU-3
 Scenario: The news section is displayed on Home Page
 	Then I can see login form with 'Customer Login' header
-		 And the news section contains '06/27/2024' date
+		 And the news section contains today date
 		 And the news section title 'Latest News' is above the background
-		 And I can see 'New! Online Bill Pay,New! Online Account Transfers' section items under '06/27/2024' section
+		 And I can see 'New! Online Bill Pay,New! Online Account Transfers' section items under latest news section

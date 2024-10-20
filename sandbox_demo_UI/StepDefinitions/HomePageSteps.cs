@@ -7,6 +7,7 @@ namespace HomePageSteps.Steps
     {
         private readonly ScenarioContext _scenarioContext;
         private readonly HomePage _homePage;
+        private readonly string todayDate = DateTime.Today.ToString("MM/dd/yyyy");
 
         public HomePageSteps(ScenarioContext scenarioContext, HomePage homePage)
         {
@@ -36,13 +37,21 @@ namespace HomePageSteps.Steps
         public void ThenICanSeeSections(List<string> columns) =>
             _homePage.VerifyRightPanelListElementsAreDisplayed(columns);
 
+        [Then(@"I can see latest news sections")]
+        public void ThenICanSeeLatestNewsSections() =>
+            _homePage.VerifyRightPanelListElementsAreDisplayed(new List<string> { todayDate });
+
         [Then(@"I can see '([^']*)' section items under '([^']*)' section")]
         public void ThenICanSeeSectionsUnderService(List<string> sectionItems, string serviceName) =>
             _homePage.VerifySectionItemsUnderService(sectionItems, serviceName);
 
-        [Then(@"the news section contains '([^']*)' date")]
-        public void ThenTheNewsSectionContainsDate(string currentDate) =>
-            _homePage.VerifyNewsSectionDateTime(currentDate);
+        [Then(@"I can see '([^']*)' section items under latest news section")]
+        public void ThenICanSeeSectionItemsUnderLatestNewsSection(List<string> sectionItems) =>
+            _homePage.VerifySectionItemsUnderService(sectionItems, todayDate);
+
+        [Then(@"the news section contains today date")]
+        public void ThenTheNewsSectionContainsTodayDate() =>
+            _homePage.VerifyNewsSectionDateTime(todayDate);
 
         [Then(@"the news section title '([^']*)' is above the background")]
         public void ThenTheNewsSectionTitleIsAboveTheBackground(string title) =>

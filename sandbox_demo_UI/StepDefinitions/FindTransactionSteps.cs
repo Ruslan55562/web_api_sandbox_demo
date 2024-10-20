@@ -36,8 +36,5 @@ namespace sandbox_demo_UI.StepDefinitions
         [When(@"I search transaction by '([^']*)'")]
         public void WhenISearchTransactionBy(string searchOption) => 
             _findTransactionPage.ClickFindButton(searchOption);
-
-
-
     }
 }

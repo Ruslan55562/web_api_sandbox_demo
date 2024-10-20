@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,10 +7,42 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\" />
-    <Folder Include="Hooks\" />
     <Folder Include="Models\" />
     <Folder Include="Reports\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="ExtentReports" Version="5.0.4" />
+    <PackageReference Include="IKVM" Version="8.10.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit" Version="4.2.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.9.74" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <IkvmReference Include="hsqldb.jar">
+      <Version>1.0.0.0</Version>
+      <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+      <AssemblyName>HsqldbDriver</AssemblyName>
+    </IkvmReference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

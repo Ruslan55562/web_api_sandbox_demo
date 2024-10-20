@@ -1,6 +1,6 @@
 ﻿using java.sql;
 using NUnit.Framework;
-using SpecFlowProject;
+using web_api_sandbox_demo_UI_Configs;
 
 namespace web_api_sandbox_demo_UI.Hooks
 {
