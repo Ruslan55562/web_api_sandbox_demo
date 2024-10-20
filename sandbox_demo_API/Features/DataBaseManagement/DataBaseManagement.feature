@@ -1,7 +1,7 @@
 ﻿Feature: DataBaseManagement
 
 As a user
-I want to be able to management data base data
+I want to be able to manage database data
 So I can initialize or clean DB
 
 @DB-1
