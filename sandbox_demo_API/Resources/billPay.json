@@ -1,0 +1,15 @@
+{
+  "accountId": 12345,
+  "amount": 10,
+  "body": {
+    "name": "John Smith",
+    "address": {
+      "street": "1431 Main St",
+      "city": "Beverly Hills",
+      "state": "CA",
+      "zipCode": "90210"
+    },
+    "phoneNumber": "310-447-4121",
+    "accountNumber": 12456
+  }
+}

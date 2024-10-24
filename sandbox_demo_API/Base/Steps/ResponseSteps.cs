@@ -20,6 +20,12 @@ public class ResponseSteps
         _context["response"] = ResponseExtensions.SendTheRequest(client, request);
     }
 
+    [Then(@"The response message should be ""(.*)""")]
+    public void ThenTheResponseMessageShouldBe(string expectedMessage)
+    {
+        ResponseExtensions.VerifyResponseMessage(_context, expectedMessage);
+    }
+
     [Then(@"I should see status code (.*)")]
     public void ThenIShouldSeeStatusCode(int expectedStatusCode)
     {
