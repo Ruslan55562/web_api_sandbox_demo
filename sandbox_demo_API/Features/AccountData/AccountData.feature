@@ -15,6 +15,8 @@ Scenario: The user can send funds
 		And I send the request
 	Then I should see status code 200
 		And The response message should be "Successfully transferred $1 from account #12345 to account #12789" 
+		And I verify balance change of account "12345" from initial balance "-2300" and account "12789" from initial balance "100" with amount "1"
+
 
 @ACA-2
 Scenario: The user can pay a bill
@@ -25,3 +27,4 @@ Scenario: The user can pay a bill
 		And The bill payment result should be:
 			| accountId | amount | payeeName  |
 			| 12345     | 10     | John Smith |
+		And I verify balance change of account "12345" from initial balance "-2300" with amount "10"

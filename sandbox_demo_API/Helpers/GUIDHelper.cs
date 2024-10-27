@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace web_api_sandbox_demo_API.Helpers
+﻿namespace web_api_sandbox_demo_API.Helpers
 {
     public class GUIDHelper
     {

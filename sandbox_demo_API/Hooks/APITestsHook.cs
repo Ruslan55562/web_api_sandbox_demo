@@ -25,6 +25,11 @@ namespace sandbox_demo_API.Hooks
         {
             DBHook.OpenConnection();
             ReportHelper.CreateTest();
+            InitializeClient();
+        }
+
+        private void InitializeClient()
+        {
             var client = new RestClient(ConfigurationLoader.GetBaseUrl());
             _context["client"] = client;
         }

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Features\AccountData\" />
+    <Folder Include="Features\UserData\" />
     <Folder Include="Reports\" />
   </ItemGroup>
 
@@ -48,6 +49,9 @@
     </None>
     <None Update="Resources\transferParams.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\userUpdate.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

@@ -34,8 +34,13 @@ namespace sandbox_demo_API_Configs
         public static string? GetBaseUrl()
         {
             return _configuration.Value["ApiSettings:BaseUrl"];
-
         }
+
+        public static string? GetWebAppUrl()
+        {
+            return _configuration.Value["ApiSettings:WebAppUrl"];
+        }
+
         public static IConfiguration GetConfiguration()
         {
             return _configuration.Value;

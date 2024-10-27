@@ -21,5 +21,19 @@ namespace web_api_sandbox_demo_API.StepDefinitions
             var expected = billPayment.CreateInstance<BillPayResponseModel>();
             ResponseExtensions.VerifyBillPaymentResult(_context, expected);
         }
+
+        [Then(@"I verify balance change of account ""([^""]*)"" from initial balance ""([^""]*)"" and account ""([^""]*)"" from initial balance ""([^""]*)"" with amount ""([^""]*)""")]
+        public void ThenIVerifyBalanceChangeOfAccountFromInitialBalanceAndAccountFromInitialBalanceWithAmount
+            (string accountOne, double balanceOne, string accountTwo, double balanceTwo, double amount)
+        {
+            ResponseExtensions.VerifyBalanceChange(accountOne, balanceOne, accountTwo, balanceTwo, amount, _context);
+        }
+
+        [Then(@"I verify balance change of account ""([^""]*)"" from initial balance ""([^""]*)"" with amount ""([^""]*)""")]
+        public void ThenIVerifyBalanceChangeOfAccountFromInitialBalanceWithAmount(string accountId, double initialBalance, double amount)
+        {
+            ResponseExtensions.VerifyBalanceChangeForSpecificAccount(accountId, initialBalance, amount, _context);
+        }
+
     }
 }

@@ -14,6 +14,7 @@ namespace web_api_sandbox_demo_API.Base.Steps
         }
 
         [Given(@"I create a request to endpoint ""(.*)"" with ""(.*)"" method")]
+        [When(@"I create a request to endpoint ""(.*)"" with ""(.*)"" method")]
         public void GivenICreateARequestToEndpointWithMethod(string endpoint, string method)
         {
             var httpMethod = (Method)Enum.Parse(typeof(Method), method, true);
