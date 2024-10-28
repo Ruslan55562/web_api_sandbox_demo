@@ -364,3 +364,10 @@ FodyWeavers.xsd
 
 Reports/
 *.feature.cs
+
+#CICD
+/CICD/.idea/
+/CICD/target/
+/CICD/out/
+parabank.iml
+.DS_Store
