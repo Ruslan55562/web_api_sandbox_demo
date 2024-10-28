@@ -2,6 +2,7 @@
 using RestSharp;
 using sandbox_demo_API.Models.Request_Models;
 using sandbox_demo_API_Configs;
+using System.Net;
 
 namespace web_api_sandbox_demo_API.Base.Extentions
 {
@@ -53,7 +54,14 @@ namespace web_api_sandbox_demo_API.Base.Extentions
                 throw new InvalidOperationException($"The method '{method}' is not supported. Expected 'POST'");
             }
 
-            var jSessionId = InitializeSession(context);
+            InitializeSession(context);
+
+            if (context["JSESSIONID"] is string sessionId)
+            {
+                var client = context["client"] as RestClient;
+                var getRequest = new RestRequest($"{ConfigurationLoader.GetWebAppUrl()}/register.htm;{sessionId}", Method.Get);
+                client.Execute(getRequest); 
+            }
 
             var requestContent = CreateRegistrationRequestBody(customerData);
 
@@ -62,33 +70,36 @@ namespace web_api_sandbox_demo_API.Base.Extentions
                 RequestFormat = DataFormat.Json
             };
 
-            request.AddHeader("Cookie", jSessionId);
             request.AddParameter("application/x-www-form-urlencoded", requestContent, ParameterType.RequestBody);
 
             return request;
         }
 
-        private static string InitializeSession(ScenarioContext context)
+        private static void InitializeSession(ScenarioContext context)
         {
             var client = context["client"] as RestClient;
+            var cookieContainer = context["cookieContainer"] as CookieContainer;
             var request = new RestRequest(ConfigurationLoader.GetWebAppUrl() + "/index.htm", Method.Get);
-
             var response = client.Execute(request);
 
             if (response.Cookies.FirstOrDefault(c => c.Name == "JSESSIONID") is { } sessionCookie)
             {
-                context["JSESSIONID"] = $"JSESSIONID={sessionCookie.Value}";
+                var existingCookie = cookieContainer.GetCookies(new Uri(ConfigurationLoader.GetBaseUrl()))
+                    .Cast<Cookie>()
+                    .FirstOrDefault(c => c.Name == "JSESSIONID");
+
+                if (existingCookie == null)
+                {
+                    cookieContainer.Add(new Uri(ConfigurationLoader.GetBaseUrl()),
+                                        new Cookie(sessionCookie.Name, sessionCookie.Value, sessionCookie.Path, sessionCookie.Domain));
+                }
+                context["JSESSIONID"] = $"{sessionCookie.Name}={sessionCookie.Value}";
             }
             else
             {
                 throw new InvalidOperationException("JSESSIONID not found in response cookies.");
             }
-
-            return context["JSESSIONID"] as string ?? throw new InvalidOperationException("JSESSIONID is missing.");
         }
-
-
-
 
         private static string CreateRegistrationRequestBody(Dictionary<string, string> customerData)
         {

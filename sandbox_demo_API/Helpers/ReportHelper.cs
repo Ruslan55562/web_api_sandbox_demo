@@ -8,6 +8,7 @@ namespace sandbox_demo_API.Helpers
         private static ExtentReports _extent;
         private static ExtentTest _test;
         private static ExtentSparkReporter _sparkReporter;
+
         public static void InitializeReport()
         {
             string projectDirectory = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
@@ -28,15 +29,15 @@ namespace sandbox_demo_API.Helpers
             _extent.AttachReporter(_sparkReporter);
         }
 
-        public static void CreateTest()
+        public static void CreateTest(ScenarioContext scenarioContext)
         {
-            _test = _extent.CreateTest(ScenarioContext.Current.ScenarioInfo.Title);
-            ScenarioContext.Current["ExtentTest"] = _test;
+            _test = _extent.CreateTest(scenarioContext.ScenarioInfo.Title);
+            scenarioContext["ExtentTest"] = _test;
         }
 
-        public static void ProduceReport()
+        public static void ProduceReport(ScenarioContext scenarioContext)
         {
-            var testError = ScenarioContext.Current.TestError;
+            var testError = scenarioContext.TestError;
             if (testError == null)
             {
                 _test.Pass("Scenario passed");
@@ -54,4 +55,3 @@ namespace sandbox_demo_API.Helpers
         }
     }
 }
-

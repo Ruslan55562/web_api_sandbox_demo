@@ -23,7 +23,7 @@ Scenario: User is able to see statement for the account
 	When I click on '5' account number link
 	Then I can see account activity transaction table with the next data:
 		| Date       | Transaction             | Debit (-) | Credit (+) |
-		| 10-12-2024 | Funds Transfer Received |           | $100.00    |
+		| 10-13-2024 | Funds Transfer Received |           | $100.00    |
 		 
 @ADU-3
 Scenario: User can see details for transaction in account

@@ -51,9 +51,7 @@ namespace sandbox_demo_API.StepDefinitions
             }
 
             var responseData = JsonConvert.DeserializeObject<GetUserDataModel>(response.Content);
-
             var expectedData = table.CreateInstance<UserDataInstanceModel>();
-
             ResponseExtensions.ValidateResponseData(responseData, expectedData);
         }
 

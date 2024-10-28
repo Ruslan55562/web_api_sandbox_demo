@@ -1,6 +1,7 @@
 ﻿using RestSharp;
 using sandbox_demo_API.Helpers;
 using sandbox_demo_API_Configs;
+using System.Net;
 
 namespace sandbox_demo_API.Hooks
 {
@@ -24,21 +25,26 @@ namespace sandbox_demo_API.Hooks
         public void Initialize()
         {
             DBHook.OpenConnection();
-            ReportHelper.CreateTest();
+            ReportHelper.CreateTest(_context);
             InitializeClient();
         }
 
         private void InitializeClient()
         {
-            var client = new RestClient(ConfigurationLoader.GetBaseUrl());
+            var cookieContainer = new CookieContainer();
+            var client = new RestClient(new RestClientOptions(ConfigurationLoader.GetBaseUrl())
+            {
+                CookieContainer = cookieContainer
+            });
             _context["client"] = client;
+            _context["cookieContainer"] = cookieContainer;
         }
 
         [AfterScenario]
         public void CleanUp()
         {
             DBHook.CloseConnection();
-            ReportHelper.ProduceReport();
+            ReportHelper.ProduceReport(_context);
         }
 
         [AfterTestRun]
