@@ -1,4 +1,4 @@
-# Parabank Project with Test Framework
+# Parabank Application with Test Framework
 
 This project contains the Parabank application along with API and UI test frameworks for testing its functionality. Docker is used for easy setup and deployment.
 
