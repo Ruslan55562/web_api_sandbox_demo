@@ -2,8 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using web_api_sandbox_demo_UI.Helpers;
-using web_api_sandbox_demo_UI.Hooks;
-using web_api_sandbox_demo_UI_Configs;
+using sandbox_demo_Shared.Helpers;
+using sandbox_demo_Shared.Hooks;
+using sandbox_demo_Shared.Configs;
 
 namespace web_api_sandbox_demo_UI_Drivers
 {
@@ -14,7 +15,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         private readonly IConfiguration _configuration;
         private IWebDriver _driver;
         private readonly DriverFactory _driverFactory;
-        private readonly string ?_baseUrl;
+        private readonly string? _baseUrl;
 
         public DriverManager(IObjectContainer objectContainer)
         {
@@ -27,15 +28,15 @@ namespace web_api_sandbox_demo_UI_Drivers
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            ReportHelper.InitializeReport();
+            ReportHelper.InitializeReport("UI");
         }
 
         [BeforeScenario]
-        public void Initialize()
+        public void Initialize(ScenarioContext scenarioContext)
         {
+            ReportHelper.CreateTest(scenarioContext);
             SelectBrowser();
             DBHook.OpenConnection();
-            ReportHelper.CreateTest();
         }
 
         public void SelectBrowser()
@@ -50,7 +51,7 @@ namespace web_api_sandbox_demo_UI_Drivers
             _driver.Navigate().GoToUrl(_baseUrl);
             WaitHelper.WaitForBasePageToLoad(_driver);
         }
-  
+
         public IWebDriver GetDriver()
         {
             _driver = _objectContainer.Resolve<IWebDriver>("driver");
@@ -58,14 +59,14 @@ namespace web_api_sandbox_demo_UI_Drivers
         }
 
         [AfterScenario]
-        public void CleanUp()
+        public void CleanUp(ScenarioContext scenarioContext)
         {
             if (_driver != null)
                 _driver.Quit();
 
             DBHook.CleanupUsers();
             DBHook.CloseConnection();
-            ReportHelper.ProduceReport();
+            ReportHelper.ProduceReport(scenarioContext);
         }
 
         [AfterTestRun]

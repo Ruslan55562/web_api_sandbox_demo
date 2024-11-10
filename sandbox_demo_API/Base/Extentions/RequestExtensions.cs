@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using sandbox_demo_API.Models.Request_Models;
-using sandbox_demo_API_Configs;
+using sandbox_demo_Shared.Configs;
 using System.Net;
 
 namespace web_api_sandbox_demo_API.Base.Extentions
@@ -15,7 +15,7 @@ namespace web_api_sandbox_demo_API.Base.Extentions
 
         public static RestRequest CreateRequestWithMethod(string endpoint, Method method, ScenarioContext context)
         {
-            var baseUrl = ConfigurationLoader.GetBaseUrl();
+            var baseUrl = AppConfig.GetBaseUrl();
             var fullUrl = $"{baseUrl}{endpoint}";
             var request = new RestRequest(fullUrl, method);
 
@@ -59,13 +59,13 @@ namespace web_api_sandbox_demo_API.Base.Extentions
             if (context["JSESSIONID"] is string sessionId)
             {
                 var client = context["client"] as RestClient;
-                var getRequest = new RestRequest($"{ConfigurationLoader.GetWebAppUrl()}/register.htm;{sessionId}", Method.Get);
+                var getRequest = new RestRequest($"{AppConfig.GetWebAppUrl()}/register.htm;{sessionId}", Method.Get);
                 client.Execute(getRequest); 
             }
 
             var requestContent = CreateRegistrationRequestBody(customerData);
 
-            var request = new RestRequest(ConfigurationLoader.GetWebAppUrl() + endpoint, Method.Post)
+            var request = new RestRequest(AppConfig.GetWebAppUrl() + endpoint, Method.Post)
             {
                 RequestFormat = DataFormat.Json
             };
@@ -79,18 +79,18 @@ namespace web_api_sandbox_demo_API.Base.Extentions
         {
             var client = context["client"] as RestClient;
             var cookieContainer = context["cookieContainer"] as CookieContainer;
-            var request = new RestRequest(ConfigurationLoader.GetWebAppUrl() + "/index.htm", Method.Get);
+            var request = new RestRequest(AppConfig.GetWebAppUrl() + "/index.htm", Method.Get);
             var response = client.Execute(request);
 
             if (response.Cookies.FirstOrDefault(c => c.Name == "JSESSIONID") is { } sessionCookie)
             {
-                var existingCookie = cookieContainer.GetCookies(new Uri(ConfigurationLoader.GetBaseUrl()))
+                var existingCookie = cookieContainer.GetCookies(new Uri(AppConfig.GetBaseUrl()))
                     .Cast<Cookie>()
                     .FirstOrDefault(c => c.Name == "JSESSIONID");
 
                 if (existingCookie == null)
                 {
-                    cookieContainer.Add(new Uri(ConfigurationLoader.GetBaseUrl()),
+                    cookieContainer.Add(new Uri(AppConfig.GetBaseUrl()),
                                         new Cookie(sessionCookie.Name, sessionCookie.Value, sessionCookie.Path, sessionCookie.Domain));
                 }
                 context["JSESSIONID"] = $"{sessionCookie.Name}={sessionCookie.Value}";

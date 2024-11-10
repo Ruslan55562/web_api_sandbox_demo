@@ -1,11 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using System;
 
-namespace web_api_sandbox_demo_UI_Configs
+namespace sandbox_demo_Shared.Configs
 {
     public static class AppConfig
     {
         private static readonly Lazy<IConfiguration> _configuration = new(() => new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build());
@@ -20,6 +21,7 @@ namespace web_api_sandbox_demo_UI_Configs
             return Environment.GetEnvironmentVariable("HSQLDB_USER") ?? _configuration.Value["HsqldbSettings:User"];
         }
 
+
         public static string? GetPassword()
         {
             var password = Environment.GetEnvironmentVariable("HSQLDB_PASSWORD");
@@ -31,6 +33,16 @@ namespace web_api_sandbox_demo_UI_Configs
                 password = _configuration.Value["HsqldbSettings:Password"];
 
             return password;
+        }
+
+        public static string? GetBaseUrl()
+        {
+            return _configuration.Value["ApiSettings:BaseUrl"];
+        }
+
+        public static string? GetWebAppUrl()
+        {
+            return _configuration.Value["ApiSettings:WebAppUrl"];
         }
 
         public static IConfiguration GetConfiguration()

@@ -1,7 +1,8 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
+using TechTalk.SpecFlow;
 
-namespace sandbox_demo_API.Helpers
+namespace sandbox_demo_Shared.Helpers
 {
     public static class ReportHelper
     {
@@ -9,23 +10,27 @@ namespace sandbox_demo_API.Helpers
         private static ExtentTest _test;
         private static ExtentSparkReporter _sparkReporter;
 
-        public static void InitializeReport()
+        public static void InitializeReport(string reportType)
         {
-            string projectDirectory = new DirectoryInfo(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-            string reportPath = Path.Combine(projectDirectory, "Reports", "ExtentReport.html");
+            string solutionDirectory =
+                Path.Combine(Directory.GetParent(Directory.GetParent(Directory.GetParent(Directory.GetParent
+                (Environment.CurrentDirectory).FullName).FullName).FullName).FullName,"sandbox_demo_Shared");
 
-            if (File.Exists(reportPath))
+            string reportDirectory = Path.Combine(solutionDirectory, "Reports");
+
+            if (!Directory.Exists(reportDirectory))
             {
-                File.Delete(reportPath);
+                Directory.CreateDirectory(reportDirectory);
             }
 
-            Directory.CreateDirectory(Path.GetDirectoryName(reportPath));
+            string reportPath = Path.Combine(reportDirectory, $"ExtentReport_{reportType}.html");
+
+            _extent = new ExtentReports();
 
             _sparkReporter = new ExtentSparkReporter(reportPath);
             _sparkReporter.Config.DocumentTitle = "Automation Test Report";
             _sparkReporter.Config.ReportName = "Extent Report";
 
-            _extent = new ExtentReports();
             _extent.AttachReporter(_sparkReporter);
         }
 

@@ -20,6 +20,7 @@ This project contains the Parabank application along with API and UI test framew
 - **CICD**: Contains `run.sh` script for building and running the Docker container.
 - **sandbox_demo_API**: API test framework for testing Parabank's API endpoints.
 - **sandbox_demo_UI**: UI test framework for testing the Parabank application interface.
+- **sandbox_demo_Shared**: is a shared test framework for automating UI and API testing of the Parabank application, providing reusable components, reporting, and configuration for efficient test execution.
 - **web_api_sandbox_demo.sln**: Solution file for the project in Visual Studio.
 
 ## Prerequisites
@@ -103,7 +104,7 @@ You can select between the following test projects:
 - **API Tests** in the `sandbox_demo_API` directory.
 - **UI Tests** in the `sandbox_demo_UI` directory.
 
-After running the tests, a report will be generated automatically and saved in the `Reports` folder of the corresponding project.
+After running the tests, a report will be generated automatically and saved in the `Reports` folder of the Shared project.
 
 ## Contributing
 

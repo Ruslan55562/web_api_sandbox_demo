@@ -1,6 +1,7 @@
 ﻿using RestSharp;
-using sandbox_demo_API.Helpers;
-using sandbox_demo_API_Configs;
+using sandbox_demo_Shared.Helpers;
+using sandbox_demo_Shared.Configs;
+using sandbox_demo_Shared.Hooks;
 using System.Net;
 
 namespace sandbox_demo_API.Hooks
@@ -18,7 +19,7 @@ namespace sandbox_demo_API.Hooks
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
-            ReportHelper.InitializeReport();
+            ReportHelper.InitializeReport("API");
         }
 
         [BeforeScenario]
@@ -32,7 +33,7 @@ namespace sandbox_demo_API.Hooks
         private void InitializeClient()
         {
             var cookieContainer = new CookieContainer();
-            var client = new RestClient(new RestClientOptions(ConfigurationLoader.GetBaseUrl())
+            var client = new RestClient(new RestClientOptions(AppConfig.GetBaseUrl())
             {
                 CookieContainer = cookieContainer
             });
