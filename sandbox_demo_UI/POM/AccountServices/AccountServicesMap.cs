@@ -1,5 +1,4 @@
-﻿using BoDi;
-using OpenQA.Selenium;
+﻿using Reqnroll.BoDi;
 using sandbox_demo_UI.Map;
 using web_api_sandbox_demo_UI.CommonPageSpace;
 
@@ -9,14 +8,13 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
     {
         public AccountServicesMap(IObjectContainer objectContainer) : base(objectContainer)
         {
-
         }
 
         public AccountServicesMap FillInInputRegistyFields(Table registryData)
         {
             var formData = registryData.Rows[0];
 
-            foreach (var fieldMapping in BillPaymentInputFieldsConstants.FieldIdMappings)
+            foreach (var fieldMapping in BillPaymentInputFieldsModel.FieldIdMappings)
             {
                 var fieldName = fieldMapping.Key;
                 var fieldNgModel = fieldMapping.Value;

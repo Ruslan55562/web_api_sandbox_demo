@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using DotNetEnv;
+using Microsoft.Extensions.Configuration;
 using System;
 
 namespace sandbox_demo_Shared.Configs
@@ -10,6 +11,13 @@ namespace sandbox_demo_Shared.Configs
                 .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build());
+
+        static AppConfig()
+        {
+            string rootPath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", ".."));
+            string envPath = Path.Combine(rootPath, ".env");
+            Env.Load(envPath);
+        }
 
         public static string? GetConnectionString()
         {

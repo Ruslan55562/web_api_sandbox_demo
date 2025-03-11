@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
 using web_api_sandbox_demo_UI.Helpers;
@@ -61,12 +61,12 @@ namespace web_api_sandbox_demo_UI_Drivers
         [AfterScenario]
         public void CleanUp(ScenarioContext scenarioContext)
         {
-            if (_driver != null)
-                _driver.Quit();
-
             DBHook.CleanupUsers();
             DBHook.CloseConnection();
-            ReportHelper.ProduceReport(scenarioContext);
+            ReportHelper.ProduceReport(scenarioContext,_driver);
+
+            if (_driver != null)
+                _driver.Quit();
         }
 
         [AfterTestRun]

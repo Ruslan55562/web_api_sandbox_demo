@@ -13,6 +13,26 @@ run_existing() {
     docker start $CONTAINER_NAME && docker attach $CONTAINER_NAME
 }
 
+run_tests() {
+    echo "Running tests..."
+
+    if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
+        echo "Container $CONTAINER_NAME is running. Proceeding with tests."
+
+        echo "------------------------------------------------------"
+        echo "Running API tests..."
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_API/sandbox_demo_API.csproj
+
+        echo "------------------------------------------------------"
+        echo "Running UI tests..."
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_UI/sandbox_demo_UI.csproj
+
+        echo "------------------------------------------------------"
+    else
+        echo "Container $CONTAINER_NAME is not running. Please start the container first."
+    fi
+}
+
 if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
     echo "Container $CONTAINER_NAME is already running."
     echo "Use option 2 to attach to the running container."
@@ -21,8 +41,9 @@ fi
 echo "Select an option:"
 echo "1. Build and run the parabank application"
 echo "2. Run the parabank application"
+echo "3. Run all tests (API & UI)"
 
-read -p "Enter option number (1 or 2): " choice
+read -p "Enter option number (1, 2, or 3): " choice
 
 case $choice in
     1)
@@ -43,7 +64,10 @@ case $choice in
             echo "Container $CONTAINER_NAME does not exist. Please select option 1 to build and run first."
         fi
         ;;
+    3)
+        run_tests
+        ;;
     *)
-        echo "Invalid input. Please choose 1 or 2."
+        echo "Invalid input. Please choose 1, 2, or 3."
         ;;
 esac

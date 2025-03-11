@@ -23,7 +23,7 @@ Scenario: User is able to see statement for the account
 	When I click on '1' account number link
 	Then I can see account activity transaction table with the next data:
 		| Date       | Transaction    | Debit (-) | Credit (+) |
-		| 12-11-2023 | 	Check # 1111  |           | $300.00    |
+		| 12-11-2024 | 	Check # 1111  |           | $300.00    |
 		 
 @ADU-3
 Scenario: User can see details for transaction in account
@@ -31,4 +31,4 @@ Scenario: User can see details for transaction in account
 		And I click on '1' transaction
 	Then I can see trasaction details with the next data:
 		| Transaction ID | Date       | Description  | Type   | Amount  |
-		| 12145          | 12-11-2023 | Check # 1111 | Credit | $300,00 |
+		| 12145          | 12-11-2024 | Check # 1111 | Credit | $300,00 |

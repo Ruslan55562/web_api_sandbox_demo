@@ -371,3 +371,6 @@ Reports/
 /CICD/out/
 parabank.iml
 .DS_Store
+
+#.env
+.env

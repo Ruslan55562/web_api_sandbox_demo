@@ -2,9 +2,10 @@
 using RestSharp;
 using sandbox_demo_API.Models.Instance_Models;
 using sandbox_demo_API.Models.Response_Models;
+using sandbox_demo_API.Requests;
+using sandbox_demo_API.Responses;
 using System.Net;
-using TechTalk.SpecFlow.Assist;
-using web_api_sandbox_demo_API.Base.Extentions;
+using Reqnroll;
 
 namespace sandbox_demo_API.StepDefinitions
 {
@@ -36,7 +37,7 @@ namespace sandbox_demo_API.StepDefinitions
         public void GivenICreateARegistrationRequestToEndpointWithMethod(string endpoint, string method)
         {
             var customerData = _context["RegistrationData"] as Dictionary<string, string>;
-            var request = RequestExtensions.CreateRegistrationRequest(_context,customerData, endpoint, method);
+            var request = UserDataRequests.CreateRegistrationRequest(_context, customerData, endpoint, method);
             _context["request"] = request;
         }
 
@@ -52,14 +53,14 @@ namespace sandbox_demo_API.StepDefinitions
 
             var responseData = JsonConvert.DeserializeObject<GetUserDataModel>(response.Content);
             var expectedData = table.CreateInstance<UserDataInstanceModel>();
-            ResponseExtensions.ValidateResponseData(responseData, expectedData);
+            UserDataResponses.ValidateResponseData(responseData, expectedData);
         }
 
         [Then(@"The default amount of newly created account is ""([^""]*)""")]
         public void ThenTheDefaultAmountOfNewlyCreatedAccountIs(string amount)
         {
             var response = _context["response"] as RestResponse;
-            ResponseExtensions.GetAmountFromResponse(response.Content,amount);
+            UserDataResponses.GetAmountFromResponse(response.Content, amount);
         }
     }
 }

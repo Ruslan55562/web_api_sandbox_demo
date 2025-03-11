@@ -2,7 +2,7 @@
 
 namespace sandbox_demo_UI.Map
 {
-    public static class BillPaymentInputFieldsConstants
+    public static class BillPaymentInputFieldsModel
     {
         public static string payeeNameInputField = "payee.name";
         public static string adressInputField = "payee.address.street";

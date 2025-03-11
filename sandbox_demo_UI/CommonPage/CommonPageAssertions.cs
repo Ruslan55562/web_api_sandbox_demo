@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using NUnit.Framework.Legacy;
 using System.Collections;
 

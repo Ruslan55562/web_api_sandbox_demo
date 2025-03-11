@@ -1,7 +1,7 @@
 ﻿using java.sql;
 using NUnit.Framework;
 using sandbox_demo_Shared.Configs;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace sandbox_demo_Shared.Hooks
 {

@@ -2,7 +2,7 @@
 
 namespace sandbox_demo_UI.Map
 {
-    public static class RegistrationInputFieldsConstants
+    public static class RegistrationInputFieldsModel
     {
         public static string firstNameInputFieldId = "customer.firstName";
         public static string lastNameInputFieldId = "customer.lastName";

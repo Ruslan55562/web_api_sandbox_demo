@@ -1,6 +1,6 @@
 ﻿using sandbox_demo_API.Models.Response_Models;
-using TechTalk.SpecFlow.Assist;
-using web_api_sandbox_demo_API.Base.Extentions;
+using sandbox_demo_API.Responses;
+using Reqnroll;
 
 namespace web_api_sandbox_demo_API.StepDefinitions
 {
@@ -19,20 +19,20 @@ namespace web_api_sandbox_demo_API.StepDefinitions
         public void ThenTheBillPaymentResultShouldBe(Table billPayment)
         {
             var expected = billPayment.CreateInstance<BillPayResponseModel>();
-            ResponseExtensions.VerifyBillPaymentResult(_context, expected);
+            BillPaymentResponses.VerifyBillPaymentResult(_context, expected);
         }
 
         [Then(@"I verify balance change of account ""([^""]*)"" from initial balance ""([^""]*)"" and account ""([^""]*)"" from initial balance ""([^""]*)"" with amount ""([^""]*)""")]
         public void ThenIVerifyBalanceChangeOfAccountFromInitialBalanceAndAccountFromInitialBalanceWithAmount
             (string accountOne, double balanceOne, string accountTwo, double balanceTwo, double amount)
         {
-            ResponseExtensions.VerifyBalanceChange(accountOne, balanceOne, accountTwo, balanceTwo, amount, _context);
+            BillPaymentResponses.VerifyBalanceChange(accountOne, balanceOne, accountTwo, balanceTwo, amount, _context);
         }
 
         [Then(@"I verify balance change of account ""([^""]*)"" from initial balance ""([^""]*)"" with amount ""([^""]*)""")]
         public void ThenIVerifyBalanceChangeOfAccountFromInitialBalanceWithAmount(string accountId, double initialBalance, double amount)
         {
-            ResponseExtensions.VerifyBalanceChangeForSpecificAccount(accountId, initialBalance, amount, _context);
+            BillPaymentResponses.VerifyBalanceChangeForSpecificAccount(accountId, initialBalance, amount, _context);
         }
 
     }

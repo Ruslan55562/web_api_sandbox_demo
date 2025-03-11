@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using sandbox_demo_UI.Map;
 using web_api_sandbox_demo_UI.CommonPageSpace;
 
@@ -16,7 +16,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
         {
             var formData = registryData.Rows[0];
 
-            foreach (var fieldMapping in RegistrationInputFieldsConstants.FieldIdMappings)
+            foreach (var fieldMapping in RegistrationInputFieldsModel.FieldIdMappings)
             {
                 var fieldName = fieldMapping.Key;
                 var fieldId = fieldMapping.Value;
