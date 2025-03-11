@@ -7,14 +7,13 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
     {
         public HomePageMap(IObjectContainer objectContainer) : base(objectContainer)
         {
-
         }
 
-        public HomePageMap LogIntoApplication(string username, string password,string userNameField,string passwordField, string logInButton)
+        public HomePageMap LogIntoApplication(HomePage homePage, string username, string password)
         {
-            SendTextToInput(userNameField, username);
-            SendTextToInput(passwordField, password);
-            ClickButton(logInButton);
+            SendTextToInput(homePage.GetUserNameField(), username);
+            SendTextToInput(homePage.GetPasswordField(), password);
+            homePage.GetLogInButton().Click();
             return this;
         }
     }

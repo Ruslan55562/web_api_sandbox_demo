@@ -7,7 +7,6 @@ namespace web_api_sandbox_demo_UI.POM.AccountDetails
     {
         public AccountDetailsMap(IObjectContainer objectContainer) : base(objectContainer)
         {
-
         }
     }
 }

@@ -8,15 +8,15 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
         private readonly ScenarioContext _scenarioContext;
         private readonly RegisterPage _registerPage;
 
-        public UserCreationSteps(ScenarioContext scenarioContext,RegisterPage registerPage)
+        public UserCreationSteps(ScenarioContext scenarioContext, RegisterPage registerPage)
         {
             _scenarioContext = scenarioContext;
-            _registerPage = registerPage;   
+            _registerPage = registerPage;
         }
 
         [Given(@"I click on '([^']*)' button")]
         [When(@"I click on '([^']*)' button")]
-        public void GivenIClickOnButton(string buttonName) => 
+        public void GivenIClickOnButton(string buttonName) =>
             _registerPage.ClickOnRegisterButton(buttonName);
 
         [When(@"I fill in input fields with the next data")]
@@ -36,7 +36,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _registerPage.VerifyWelcomeHeaderMessageIsDisplayed(welcomeMessage);
 
         [Then(@"I can see '([^']*)' message above the nav panel")]
-        public void ThenICanSeeMessageAboveTheNavPanel(string message) => 
+        public void ThenICanSeeMessageAboveTheNavPanel(string message) =>
             _registerPage.VerifyNavigationPanelMessageIsDisplayed(message);
 
         [Then(@"The error message '([^']*)' is displayed")]

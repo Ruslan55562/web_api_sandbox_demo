@@ -6,13 +6,14 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 {
     public class RegisterPageMap : CommonPageMap
     {
-        private ScenarioContext _scenarioContext;
+        private readonly ScenarioContext _scenarioContext;
+
         public RegisterPageMap(IObjectContainer objectContainer, ScenarioContext scenarioContext) : base(objectContainer)
         {
             _scenarioContext = scenarioContext;
         }
 
-        public RegisterPageMap FillInInputRegistyFields(Table registryData)
+        public RegisterPageMap FillInInputRegistyFields(RegisterPage registerPage, Table registryData)
         {
             var formData = registryData.Rows[0];
 
@@ -23,7 +24,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
                 if (formData.TryGetValue(fieldName, out var value))
                 {
-                    SendTextToInput(RegisterPage.InputFields(fieldId), value);
+                    SendTextToInput(registerPage.InputFields(fieldId), value);
 
                     if (fieldName == "Username")
                     {
@@ -31,7 +32,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
                         {
                             _scenarioContext["usernames"] = new List<string>();
                         }
-                    ((List<string>)_scenarioContext["usernames"]).Add(value);
+                        ((List<string>)_scenarioContext["usernames"]).Add(value);
                     }
                 }
             }

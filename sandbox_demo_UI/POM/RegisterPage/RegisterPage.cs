@@ -1,4 +1,6 @@
-﻿using web_api_sandbox_demo_UI.CommonPageSpace;
+﻿using System.Globalization;
+using web_api_sandbox_demo_UI.CommonPageSpace;
+using OpenQA.Selenium;
 
 namespace web_api_sandbox_demo_UI.POM.RegisterPage
 {
@@ -6,21 +8,21 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
     {
         private readonly RegisterPageAssertions _registerPageAssertions;
         private readonly RegisterPageMap _registerPageMap;
+        private readonly IWebDriver _driver;
 
-        private string registerFormButton = "//input[@value='Register']";
-
-        private string NavPanelWelcomeMessage(string message) => $"//div[@id='leftPanel']/p[.='{message}']";
-        private string HeaderWelcomeMessage(string welcomeMessage) => $"//h1[.='{welcomeMessage}']";
-        private string ErrorMessageText(string message) => $"//span[contains(.,'{message}')]";
-        private string ButtonsUnderAccountServicesPanel(string optionName) => $"//div[@id='leftPanel']//a[.='{optionName}']";
-        public static string InputFields(string id) => $"//input[@id='{id}']";
-
-
-        public RegisterPage(RegisterPageAssertions registerPageAssertions, RegisterPageMap registerPageMap)
+        public RegisterPage(IWebDriver driver, RegisterPageAssertions registerPageAssertions, RegisterPageMap registerPageMap)
         {
+            _driver = driver;
             _registerPageAssertions = registerPageAssertions;
             _registerPageMap = registerPageMap;
         }
+
+        public IWebElement RegisterFormButton => _driver.FindElement(By.XPath("//input[@value='Register']"));
+        public IWebElement NavPanelWelcomeMessage(string message) => _driver.FindElement(By.XPath($"//div[@id='leftPanel']/p[.='{message}']"));
+        public IWebElement HeaderWelcomeMessage(string welcomeMessage) => _driver.FindElement(By.XPath($"//h1[.='{welcomeMessage}']"));
+        public IWebElement ErrorMessageText(string message) => _driver.FindElement(By.XPath($"//span[contains(.,'{message}')]"));
+        public IWebElement ButtonsUnderAccountServicesPanel(string optionName) => _driver.FindElement(By.XPath($"//div[@id='leftPanel']//a[.='{optionName}']"));
+        public IWebElement InputFields(string id) => _driver.FindElement(By.XPath($"//input[@id='{id}']"));
 
         public RegisterPage ClickOnRegisterButton(string text)
         {
@@ -36,33 +38,31 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
         public RegisterPage FillInInputRegisterData(Table userData)
         {
-            _registerPageMap.FillInInputRegistyFields(userData);
+            _registerPageMap.FillInInputRegistyFields(this,userData);
             return this;
         }
 
         public RegisterPage SendRegisterForm()
         {
-            _registerPageMap.ClickButtonWithWait(registerFormButton,TimeSpan.FromSeconds(1));
+            _registerPageMap.ClickButtonWithWait(RegisterFormButton, TimeSpan.FromSeconds(1));
             return this;
         }
 
         public RegisterPage VerifyWelcomeHeaderMessageIsDisplayed(string welcomeMessage)
         {
-            _registerPageAssertions.IsElementDisplayed(HeaderWelcomeMessage(welcomeMessage), 
-                "The element was not displayed on the page");
+            _registerPageAssertions.IsTrue(HeaderWelcomeMessage(welcomeMessage).Displayed, "The element was not displayed on the page");
             return this;
         }
 
         public RegisterPage VerifyNavigationPanelMessageIsDisplayed(string message)
         {
-            _registerPageAssertions.IsElementDisplayed(NavPanelWelcomeMessage(message), 
-                "The element was not displayed on the page");
+            _registerPageAssertions.IsTrue(NavPanelWelcomeMessage(message).Displayed, "The element was not displayed on the page");
             return this;
         }
 
         public RegisterPage VerifyFormErrorMessage(string message)
         {
-            var actualMessage = _registerPageMap.GetElement(ErrorMessageText(message)).Text.TrimEnd('.');
+            var actualMessage = ErrorMessageText(message).Text.TrimEnd('.');
 
             _registerPageAssertions.AreEqual(message, actualMessage, "The error message is not equal to expected one");
             return this;

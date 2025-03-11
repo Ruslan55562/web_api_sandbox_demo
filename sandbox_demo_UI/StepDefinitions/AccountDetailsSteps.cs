@@ -6,6 +6,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
     public class AccountDetailsSteps
     {
         private readonly AccountDetailsPage _accountDetailsPage;
+
         public AccountDetailsSteps(AccountDetailsPage accountDetailsPage)
         {
             _accountDetailsPage = accountDetailsPage;
@@ -20,19 +21,19 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _accountDetailsPage.VerifyAccountDetailsData(accountDetailsData);
 
         [Then(@"I can see account activity with the next data:")]
-        public void ThenICanSeeAccountActivityWithTheNextData(Table accountActivityData) => 
+        public void ThenICanSeeAccountActivityWithTheNextData(Table accountActivityData) =>
             _accountDetailsPage.VerifyAccountActivityData(accountActivityData);
 
         [When(@"I click on '([^']*)' transaction")]
-        public void WhenIClickOnTransaction(string transactionNumber) => 
+        public void WhenIClickOnTransaction(string transactionNumber) =>
             _accountDetailsPage.ClickOnTransactionLink(transactionNumber);
 
         [Then(@"I can see trasaction details with the next data:")]
-        public void ThenICanSeeTrasactionDetailsWithTheNextData(Table transactionDetails) => 
-            _accountDetailsPage.VerifyTransactioDetailsnData(transactionDetails);
+        public void ThenICanSeeTrasactionDetailsWithTheNextData(Table transactionDetails) =>
+            _accountDetailsPage.VerifyTransactionDetailsData(transactionDetails);
 
         [Then(@"I can see account activity transaction table with the next data:")]
-        public void ThenICanSeeAccountActivityTransactionTableWithTheNextData(Table accountActivityTransactionData) => 
+        public void ThenICanSeeAccountActivityTransactionTableWithTheNextData(Table accountActivityTransactionData) =>
             _accountDetailsPage.VerifyAccountActivityTransactionData(accountActivityTransactionData);
     }
 }

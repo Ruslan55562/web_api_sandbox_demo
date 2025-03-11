@@ -1,32 +1,33 @@
-﻿using Reqnroll.BoDi;
-using web_api_sandbox_demo_UI.CommonPageSpace;
+﻿using web_api_sandbox_demo_UI.CommonPageSpace;
+using Reqnroll.BoDi;
+using OpenQA.Selenium;
+using System.Collections.Generic;
 
 namespace web_api_sandbox_demo_UI.POM.HomePage
 {
     public class HomePageAssertions : CommonPageAssertions
     {
         private readonly HomePageMap _homePageMap;
-        public HomePageAssertions(HomePageMap homePageMap, IObjectContainer objectContainer) :  base(objectContainer)
+
+        public HomePageAssertions(HomePageMap homePageMap, IObjectContainer objectContainer) : base(objectContainer)
         {
-            _homePageMap = homePageMap; 
+            _homePageMap = homePageMap;
         }
 
-
-        public HomePageAssertions VerifyRightPanelListElementsAreDisplayed(List<string> elements,Func<string,string> RightPanelListElements)
+        public HomePageAssertions VerifyRightPanelListElementsAreDisplayed(List<string> elements, HomePage homePage)
         {
             foreach (var item in elements)
             {
-                IsElementDisplayed(RightPanelListElements(item), $"The list element with name {item} is not displayed");
+                IsTrue(homePage.GetRightPanelListElement(item).Displayed, $"The list element with name {item} is not displayed");
             }
             return this;
         }
 
-        public HomePageAssertions VerifySectionItemsUnderService(List<string> sectionItems, string sectionName, Func<string, string,string> SectionItemsUnderService)
+        public HomePageAssertions VerifySectionItemsUnderService(List<string> sectionItems, string sectionName, HomePage homePage)
         {
             foreach (var item in sectionItems)
             {
-               Contains(_homePageMap.GetElement(SectionItemsUnderService(sectionName, item)).Text,
-                    sectionItems, $"The page doesn't contain {item} section item");
+                Contains(homePage.GetSectionItemUnderService(sectionName, item).Text, sectionItems, $"The page doesn't contain {item} section item");
             }
             return this;
         }
@@ -37,12 +38,12 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
             return this;
         }
 
-        public HomePageAssertions VerifyNewsTitleIsAboveBackground(string title, Func<string, string> RightPanelNewsTitle)
+        public HomePageAssertions VerifyNewsTitleIsAboveBackground(string title, HomePage homePage)
         {
-            string actualBackground = _homePageMap.GetElement(RightPanelNewsTitle(title)).GetCssValue("background");
-            string actualZIndex = _homePageMap.GetElement(RightPanelNewsTitle(title)).GetCssValue("z-index");
-            IsTrue(actualZIndex == "auto" || string.IsNullOrEmpty(actualZIndex),
-                         "The news section title has a specified z-index which is unexpected");
+            var element = homePage.GetRightPanelNewsTitle(title);
+            string actualBackground = element.GetCssValue("background");
+            string actualZIndex = element.GetCssValue("z-index");
+            IsTrue(actualZIndex == "auto" || string.IsNullOrEmpty(actualZIndex), "The news section title has a specified z-index which is unexpected");
             IsTrue(actualBackground.Contains("images/icon4.jpg"), "The background image was not found");
             return this;
         }

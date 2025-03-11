@@ -43,7 +43,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             string browser = _configuration["BrowserSettings:Browser"]?.ToLower() ?? "chrome";
             _driver = _driverFactory.InitDriver(browser);
-            _objectContainer.RegisterInstanceAs<IWebDriver>(_driver, "driver");
+            _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
         }
 
         public void GoToBasePage()
@@ -54,8 +54,7 @@ namespace web_api_sandbox_demo_UI_Drivers
 
         public IWebDriver GetDriver()
         {
-            _driver = _objectContainer.Resolve<IWebDriver>("driver");
-            return _driver;
+            return _objectContainer.Resolve<IWebDriver>();
         }
 
         [AfterScenario]
@@ -63,7 +62,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             DBHook.CleanupUsers();
             DBHook.CloseConnection();
-            ReportHelper.ProduceReport(scenarioContext,_driver);
+            ReportHelper.ProduceReport(scenarioContext, _driver);
 
             if (_driver != null)
                 _driver.Quit();

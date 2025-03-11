@@ -10,7 +10,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
         {
         }
 
-        public AccountServicesMap FillInInputRegistyFields(Table registryData)
+        public AccountServicesMap FillInInputRegistyFields(AccountServicesPage accountServicesPage, Table registryData)
         {
             var formData = registryData.Rows[0];
 
@@ -21,7 +21,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
                 if (formData.TryGetValue(fieldName, out var value))
                 {
-                    SendTextToInput(AccountServicesPage.BillPaymentInputFields(fieldNgModel), value);
+                    SendTextToInput(accountServicesPage.BillPaymentInputFields(fieldNgModel), value);
                 }
             }
 

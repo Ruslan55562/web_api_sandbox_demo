@@ -13,7 +13,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
         }
 
         [When(@"I update initial balance to '([^']*)' and minumum balance to '([^']*)'")]
-        public void WhenIUpdateInitialBalanceToAndMinumumBalanceTo(string initial, string minumum) => 
+        public void WhenIUpdateInitialBalanceToAndMinumumBalanceTo(string initial, string minumum) =>
             _accountServicesPage.UpdateInitialAndMinimalBalance(initial, minumum);
 
         [When(@"I go to '([^']*)' page")]
@@ -21,7 +21,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _accountServicesPage.GoToAccountServicesPage(pageName);
 
         [When(@"I select '([^']*)' type")]
-        public void WhenISelectType(string type) => 
+        public void WhenISelectType(string type) =>
             _accountServicesPage.SelectNewAccountType(type);
 
         [When(@"I open new account")]
@@ -42,7 +42,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _accountServicesPage.FillInBillInputFields(billInfo);
 
         [When(@"I enter '([^']*)' as loan amount and '([^']*)' down payment from '([^']*)' account")]
-        public void WhenIEnterAsLoanAmountAndDownPaymentFromAccount(string loanAmount, string downPayment, string accountId) => 
+        public void WhenIEnterAsLoanAmountAndDownPaymentFromAccount(string loanAmount, string downPayment, string accountId) =>
             _accountServicesPage.FillInRequestLoanForm(loanAmount, downPayment, accountId);
 
         [Then(@"I see successfull operation message with '([^']*)' text")]
@@ -62,7 +62,7 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _accountServicesPage.VerifyAccountTableData(balanceData);
 
         [Then(@"The loan response has the following data:")]
-        public void ThenTheLoanRequestHasTheFollowingData(Table table) => 
+        public void ThenTheLoanRequestHasTheFollowingData(Table table) =>
             _accountServicesPage.VerifyLoanResponseData(table);
     }
 }

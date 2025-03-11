@@ -34,19 +34,19 @@ namespace web_api_sandbox_demo_UI.CommonPageSpace
             _driver.FindElement(By.XPath(locator)).Click();
         }
 
-        public void ClickButtonWithWait(string locator, TimeSpan waitDuration)
+        public void ClickButtonWithWait(IWebElement element, TimeSpan waitDuration)
         {
             var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            var button = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
+            wait.Until(ExpectedConditions.ElementToBeClickable(element));
             var endTime = DateTime.Now.Add(waitDuration);
-            button.Click();
+            element.Click();
             new WebDriverWait(_driver, waitDuration).Until(drv => DateTime.Now >= endTime);
         }
 
-        public void SendTextToInput(string locator,string text)
+        public void SendTextToInput(IWebElement element, string text)
         {
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
-            IWebElement element = wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath(locator)));
+            wait.Until(ExpectedConditions.ElementToBeClickable(element));
             new WebDriverWait(_driver, TimeSpan.FromMilliseconds(250)).Until(d => true);
 
             element.Clear();
