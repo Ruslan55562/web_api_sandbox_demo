@@ -12,7 +12,7 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
         public HomePageMap LogIntoApplication(HomePage homePage, string username, string password)
         {
             SendTextToInput(homePage.GetUserNameField(), username);
-            SendTextToInput(homePage.GetPasswordField(), password);
+            homePage.GetPasswordField().SendTextToInput(_driver, password);
             homePage.GetLogInButton().Click();
             return this;
         }
