@@ -19,7 +19,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
         {
             var formData = registryData.Rows[0];
 
-            foreach (var fieldMapping in RegistrationInputFieldsPageForm.FieldIdMappings)
+            foreach (var fieldMapping in RegistrationPageForm.FieldIdMappings)
             {
                 var fieldName = fieldMapping.Key;
                 var fieldId = fieldMapping.Value;

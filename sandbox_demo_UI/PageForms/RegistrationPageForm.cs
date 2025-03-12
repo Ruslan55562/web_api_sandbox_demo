@@ -2,7 +2,7 @@
 
 namespace sandbox_demo_UI.PageForms
 {
-    public static class RegistrationInputFieldsPageForm
+    public static class RegistrationPageForm
     {
         public static string firstNameInputFieldId = "customer.firstName";
         public static string lastNameInputFieldId = "customer.lastName";

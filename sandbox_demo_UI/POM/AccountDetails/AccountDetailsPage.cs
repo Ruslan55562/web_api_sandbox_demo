@@ -6,15 +6,13 @@ namespace web_api_sandbox_demo_UI.POM.AccountDetails
 {
     public class AccountDetailsPage : CommonPage
     {
-        private readonly AccountDetailsMap _accountDetailsMap;
         private readonly AccountDetailsAssertions _accountDetailsAssertion;
         private readonly IWebDriver _driver;
 
-        public AccountDetailsPage(IWebDriver driver, AccountDetailsAssertions accountDetailsAssertions, AccountDetailsMap accountDetailsMap)
+        public AccountDetailsPage(IWebDriver driver, AccountDetailsAssertions accountDetailsAssertions)
         {
             _driver = driver;
             _accountDetailsAssertion = accountDetailsAssertions;
-            _accountDetailsMap = accountDetailsMap;
         }
 
         public IWebElement AccountDetailsTitle => _driver.FindElement(By.XPath("//h1[.='Account Details']"));

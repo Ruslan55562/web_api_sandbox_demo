@@ -2,7 +2,7 @@
 
 namespace sandbox_demo_UI.PageForms
 {
-    public static class BillPaymentInputFieldsPageForm
+    public static class BillPaymentPageForm
     {
         public static string payeeNameInputField = "payee.name";
         public static string adressInputField = "payee.address.street";

@@ -16,7 +16,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
         {
             var formData = registryData.Rows[0];
 
-            foreach (var fieldMapping in BillPaymentInputFieldsPageForm.FieldIdMappings)
+            foreach (var fieldMapping in BillPaymentPageForm.FieldIdMappings)
             {
                 var fieldName = fieldMapping.Key;
                 var fieldNgModel = fieldMapping.Value;

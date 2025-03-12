@@ -7,15 +7,11 @@ namespace sandbox_demo_UI.POM.FindTransaction
 {
     public class FindTransactionPage : CommonPage
     {
-        private readonly FindTransactionAssertions _findTransactionAssertions;
-        private readonly FindTransactionMap _findTransactionMap;
         private static IWebDriver _driver;
 
-        public FindTransactionPage(IWebDriver driver, FindTransactionAssertions findTransactionAssertions, FindTransactionMap findTransactionMap)
+        public FindTransactionPage(IWebDriver driver)
         {
             _driver = driver;
-            _findTransactionAssertions = findTransactionAssertions;
-            _findTransactionMap = findTransactionMap;
         }
 
         public static IWebElement SelectAccountDropdown => _driver.FindElement(By.XPath("//select[@id='accountId']"));
