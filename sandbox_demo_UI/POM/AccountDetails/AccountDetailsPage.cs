@@ -1,5 +1,6 @@
 ﻿using web_api_sandbox_demo_UI.CommonPageSpace;
 using OpenQA.Selenium;
+using web_api_sandbox_demo_UI.Helpers;
 
 namespace web_api_sandbox_demo_UI.POM.AccountDetails
 {
@@ -37,7 +38,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountDetails
 
         public AccountDetailsPage ClickOnTransactionLink(string number)
         {
-            _accountDetailsMap.ClickButtonWithWait(TransactionNumberLink(number), TimeSpan.FromSeconds(0.5));
+            TransactionNumberLink(number).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 

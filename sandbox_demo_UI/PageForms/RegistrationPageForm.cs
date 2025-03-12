@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace sandbox_demo_UI.Map
+namespace sandbox_demo_UI.PageForms
 {
-    public static class RegistrationInputFieldsModel
+    public static class RegistrationInputFieldsPageForm
     {
         public static string firstNameInputFieldId = "customer.firstName";
         public static string lastNameInputFieldId = "customer.lastName";

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace sandbox_demo_UI.Map
+namespace sandbox_demo_UI.PageForms
 {
     public class SearchTransactionType
     {

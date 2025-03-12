@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace sandbox_demo_UI.Map
+namespace sandbox_demo_UI.PageForms
 {
-    public static class BillPaymentInputFieldsModel
+    public static class BillPaymentInputFieldsPageForm
     {
         public static string payeeNameInputField = "payee.name";
         public static string adressInputField = "payee.address.street";

@@ -1,6 +1,7 @@
-﻿using sandbox_demo_UI.Map;
+﻿using sandbox_demo_UI.PageForms;
 using web_api_sandbox_demo_UI.CommonPageSpace;
 using OpenQA.Selenium;
+using web_api_sandbox_demo_UI.Helpers;
 
 namespace sandbox_demo_UI.POM.FindTransaction
 {
@@ -27,40 +28,39 @@ namespace sandbox_demo_UI.POM.FindTransaction
 
         public FindTransactionPage ChooseAccountToFindTransaction(string accountId)
         {
-            _findTransactionMap.ClickButtonWithWait(SelectAccountDropdown, TimeSpan.FromSeconds(1));
+            SelectAccountDropdown.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             AccountIdOption(accountId).Click();
             return this;
         }
 
         public FindTransactionPage SearchTransactionById(string transactionId)
         {
-            _findTransactionMap.SendTextToInput(FindTransactionByIdField, transactionId);
+            FindTransactionByIdField.SendTextToInput(_driver, transactionId);
             return this;
         }
 
         public FindTransactionPage SearchTransactionByDate(string date)
         {
-            _findTransactionMap.SendTextToInput(FindAccountByDateField, date);
+            FindAccountByDateField.SendTextToInput(_driver, date);
             return this;
         }
 
         public FindTransactionPage SearchTransactionByDateRange(string fromDate, string toDate)
         {
-            _findTransactionMap.SendTextToInput(FindAccountFromDateField, fromDate);
-            _findTransactionMap.SendTextToInput(FindAccountToDateField, toDate);
+            FindAccountFromDateField.SendTextToInput(_driver, fromDate);
+            FindAccountToDateField.SendTextToInput(_driver, toDate);
             return this;
         }
 
         public FindTransactionPage SearchTransactionByAmount(string amount)
         {
-            _findTransactionMap.SendTextToInput(FindAccountAmountField, amount);
+            FindAccountAmountField.SendTextToInput(_driver, amount);
             return this;
         }
 
         public FindTransactionPage ClickFindButton(string byOption)
         {
-            var buttonElement = GenerateTransactionButtonElement(byOption);
-            _findTransactionMap.ClickButtonWithWait(buttonElement, TimeSpan.FromSeconds(0.5));
+            GenerateTransactionButtonElement(byOption).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 

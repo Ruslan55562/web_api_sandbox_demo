@@ -6,12 +6,10 @@ namespace web_api_sandbox_demo_UI.CommonPageSpace
 {
     public class CommonPageAssertions
     {
-        private readonly CommonPageMap _commonPageMap;
         private IObjectContainer _objectContainer;
         public CommonPageAssertions(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
-            _commonPageMap = new CommonPageMap(_objectContainer);
         }
 
         public void AreEqual(object expected, object actual, string message)
@@ -52,11 +50,6 @@ namespace web_api_sandbox_demo_UI.CommonPageSpace
         public void IsNotNull(object actual,string message)
         {
             ClassicAssert.IsNotNull(actual, message);
-        }
-
-        public void IsElementDisplayed(string locator,string message)
-        {
-            ClassicAssert.IsTrue(_commonPageMap.GetElement(locator).Displayed, message);
         }
     }
 }

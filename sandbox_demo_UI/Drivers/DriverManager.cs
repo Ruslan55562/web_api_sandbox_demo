@@ -17,6 +17,8 @@ namespace web_api_sandbox_demo_UI_Drivers
         private readonly DriverFactory _driverFactory;
         private readonly string? _baseUrl;
 
+        public static IWebDriver CurrentDriver { get; private set; }
+
         public DriverManager(IObjectContainer objectContainer)
         {
             _objectContainer = objectContainer;
@@ -43,6 +45,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             string browser = _configuration["BrowserSettings:Browser"]?.ToLower() ?? "chrome";
             _driver = _driverFactory.InitDriver(browser);
+            CurrentDriver = _driver;
             _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
         }
 
@@ -50,6 +53,11 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             _driver.Navigate().GoToUrl(_baseUrl);
             WaitHelper.WaitForBasePageToLoad(_driver);
+        }
+
+        public static IWebDriver GetDriverInstance()
+        {
+            return CurrentDriver;
         }
 
         public IWebDriver GetDriver()

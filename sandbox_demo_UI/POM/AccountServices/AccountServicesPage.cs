@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenQA.Selenium;
 using web_api_sandbox_demo_UI.CommonPageSpace;
+using web_api_sandbox_demo_UI.Helpers;
 
 namespace web_api_sandbox_demo_UI.POM.AccountServices
 {
@@ -51,8 +52,8 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         public AccountServicesPage UpdateInitialAndMinimalBalance(string initial, string minimal)
         {
-            _accountServicesMap.SendTextToInput(InitialBalance, initial);
-            _accountServicesMap.SendTextToInput(MinimalBalance, minimal);
+            InitialBalance.SendTextToInput(_driver, initial);
+            MinimalBalance.SendTextToInput(_driver, minimal);
             PressSubmitButton();
             return this;
         }
@@ -87,13 +88,13 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
         public AccountServicesPage SelectNewAccountType(string type)
         {
             NewAccountTypeDropdown.Click();
-            _accountServicesMap.ClickButtonWithWait(AccountTypeOption(type), TimeSpan.FromSeconds(1));
+            AccountTypeOption(type).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             return this;
         }
 
         public AccountServicesPage ClickOnOpenNewAccountButton()
         {
-            _accountServicesMap.ClickButtonWithWait(OpenNewAccountButton, TimeSpan.FromSeconds(1.5));
+            OpenNewAccountButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1.5));
             return this;
         }
 
@@ -112,20 +113,20 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         public AccountServicesPage EnterTheTransferAmmount(string amount)
         {
-            _accountServicesMap.SendTextToInput(TransferAmountField, amount);
+            TransferAmountField.SendTextToInput(_driver, amount);
             return this;
         }
 
         public AccountServicesPage ChooseFromAccountNumber(string accountNumber)
         {
-            _accountServicesMap.ClickButtonWithWait(FromAccountDropdown, TimeSpan.FromSeconds(1));
+            FromAccountDropdown.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             FromAccountOption(accountNumber).Click();
             return this;
         }
 
         public AccountServicesPage ChooseToAccountNumber(string accountNumber)
         {
-            _accountServicesMap.ClickButtonWithWait(ToAccountDropdown, TimeSpan.FromSeconds(1));
+            ToAccountDropdown.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             ToAccountOption(accountNumber).Click();
             return this;
         }
@@ -134,14 +135,14 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
         {
             _accountServicesMap.FillInInputRegistyFields(this, billInfo);
             FromAccountDropdownTransferPage.Click();
-            _accountServicesMap.ClickButtonWithWait(FromAccountOptionTransferPage(defaultAccountNumber), TimeSpan.FromSeconds(1));
+            FromAccountOptionTransferPage(defaultAccountNumber).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             PressSendPaymentButton();
             return this;
         }
 
         public AccountServicesPage ClickOnTransferButton()
         {
-            _accountServicesMap.ClickButtonWithWait(TransferButton, TimeSpan.FromSeconds(0.5));
+            TransferButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 
@@ -154,11 +155,11 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         public AccountServicesPage FillInRequestLoanForm(string loanAmountValue, string downPaymentValue, string accountId)
         {
-            _accountServicesMap.SendTextToInput(LoanAmount, loanAmountValue);
-            _accountServicesMap.SendTextToInput(DownPayment, downPaymentValue);
-            _accountServicesMap.ClickButtonWithWait(FromAccountDropdown, TimeSpan.FromSeconds(1));
+            LoanAmount.SendTextToInput(_driver, loanAmountValue);
+            DownPayment.SendTextToInput(_driver, downPaymentValue);
+            FromAccountDropdown.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             FromAccountOption(accountId).Click();
-            _accountServicesMap.ClickButtonWithWait(ApplyNowButton, TimeSpan.FromSeconds(1));
+            ApplyNowButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
 
             return this;
         }
@@ -176,7 +177,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         private AccountServicesPage PressSendPaymentButton()
         {
-            _accountServicesMap.ClickButtonWithWait(SendPaymentButton, TimeSpan.FromSeconds(1));
+            SendPaymentButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             return this;
         }
 

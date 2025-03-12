@@ -1,6 +1,7 @@
 ﻿using System.Globalization;
 using web_api_sandbox_demo_UI.CommonPageSpace;
 using OpenQA.Selenium;
+using web_api_sandbox_demo_UI.Helpers;
 
 namespace web_api_sandbox_demo_UI.POM.RegisterPage
 {
@@ -26,13 +27,13 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
         public RegisterPage ClickOnRegisterButton(string text)
         {
-            _registerPageMap.ClickButton(ButtonByText(text));
+            ButtonByText(text).Click();
             return this;
         }
 
         public RegisterPage ClickOnLogOutButton(string optionName)
         {
-            _registerPageMap.ClickButtonWithWait(ButtonsUnderAccountServicesPanel(optionName), TimeSpan.FromSeconds(0.5));
+           ButtonsUnderAccountServicesPanel(optionName).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 
@@ -44,7 +45,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
         public RegisterPage SendRegisterForm()
         {
-            _registerPageMap.ClickButtonWithWait(RegisterFormButton, TimeSpan.FromSeconds(1));
+            RegisterFormButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
             return this;
         }
 

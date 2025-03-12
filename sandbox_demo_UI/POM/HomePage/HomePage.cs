@@ -65,7 +65,7 @@ namespace web_api_sandbox_demo_UI.POM.HomePage
 
         public HomePage ClickOnHeaderNavigationButton(string buttonName)
         {
-            _homePageMap.ClickButton(HeaderNavigationButtons(buttonName));
+            HeaderNavigationButtons(buttonName).Click();
             return this;
         }
 
