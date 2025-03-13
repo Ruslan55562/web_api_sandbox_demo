@@ -22,6 +22,12 @@ namespace sandbox_demo_UI.POM.FindTransaction
         public static IWebElement FindAccountAmountField => _driver.FindElement(By.XPath("//input[@id='criteria.amount']"));
         public static IWebElement AccountIdOption(string id) => _driver.FindElement(By.XPath($"//option[.='{id}']"));
 
+        public static IWebElement FindByDateButton => _driver.FindElement(By.XPath("//button[contains(@ng-click, 'DATE') and not(contains(@ng-click, 'DATE_RANGE'))]"));
+        public static IWebElement FindByDateRangeButton => _driver.FindElement(By.XPath("//button[contains(@ng-click, 'DATE_RANGE')]"));
+        public static IWebElement FindByIdButton => _driver.FindElement(By.XPath("//button[contains(@ng-click, 'ID')]"));
+        public static IWebElement FindByAmountButton => _driver.FindElement(By.XPath("//button[contains(@ng-click, 'AMOUNT')]"));
+
+
         public FindTransactionPage ChooseAccountToFindTransaction(string accountId)
         {
             SelectAccountDropdown.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(1));
@@ -62,12 +68,14 @@ namespace sandbox_demo_UI.POM.FindTransaction
 
         private IWebElement GenerateTransactionButtonElement(string searchTerm)
         {
-            if (SearchTransactionType.searchTermMap.TryGetValue(searchTerm, out string xpath))
+            return searchTerm.ToLower() switch
             {
-                return _driver.FindElement(By.XPath(xpath));
-            }
-
-            throw new ArgumentException($"Unknown search term: {searchTerm}");
+                "date" => FindByDateButton,
+                "date range" => FindByDateRangeButton,
+                "id" => FindByIdButton,
+                "amount" => FindByAmountButton,
+                _ => throw new ArgumentException($"Unknown search term: {searchTerm}"),
+            };
         }
     }
 }

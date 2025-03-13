@@ -10,7 +10,7 @@ Background:
 
 @ADU-1
 Scenario: User is able to see account details
-	When I click on '9' account number link
+	When I click on '13233' account number link
 	Then I can see account details with the next data:
 		| Account Number | Account Type | Balance   | Available |
 		| 13233          | CHECKING     | $100.00   | $100.00   |
@@ -20,15 +20,15 @@ Scenario: User is able to see account details
 
 @ADU-2
 Scenario: User is able to see statement for the account
-	When I click on '1' account number link
+	When I click on '12345' account number link
 	Then I can see account activity transaction table with the next data:
 		| Date       | Transaction    | Debit (-) | Credit (+) |
 		| 12-11-2024 | 	Check # 1111  |           | $300.00    |
 		 
 @ADU-3
 Scenario: User can see details for transaction in account
-	When I click on '1' account number link
-		And I click on '1' transaction
+	When I click on '12345' account number link
+		And I click on 'Check # 1111' transaction
 	Then I can see trasaction details with the next data:
 		| Transaction ID | Date       | Description  | Type   | Amount  |
 		| 12145          | 12-11-2024 | Check # 1111 | Credit | $300,00 |

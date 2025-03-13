@@ -13,8 +13,8 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
         }
 
         [When(@"I click on '([^']*)' account number link")]
-        public void WhenIClickOnAccountNumberLink(string number) =>
-            _accountDetailsPage.ClickOnAccountLink(number);
+        public void WhenIClickOnAccountNumberLink(string accountNumber) =>
+            _accountDetailsPage.ClickOnAccountLink(accountNumber);
 
         [Then(@"I can see account details with the next data:")]
         public void ThenICanSeeAccountDetailsWithTheNextData(Table accountDetailsData) =>
@@ -25,8 +25,8 @@ namespace web_api_sandbox_demo_UI.StepDefinitions
             _accountDetailsPage.VerifyAccountActivityData(accountActivityData);
 
         [When(@"I click on '([^']*)' transaction")]
-        public void WhenIClickOnTransaction(string transactionNumber) =>
-            _accountDetailsPage.ClickOnTransactionLink(transactionNumber);
+        public void WhenIClickOnTransaction(string transactionName) =>
+            _accountDetailsPage.ClickOnTransactionLink(transactionName);
 
         [Then(@"I can see trasaction details with the next data:")]
         public void ThenICanSeeTrasactionDetailsWithTheNextData(Table transactionDetails) =>

@@ -25,18 +25,18 @@ namespace web_api_sandbox_demo_UI.POM.AccountDetails
         public IList<IWebElement> TransactionDetailsTableHeaders => _driver.FindElements(By.XPath("//table//b"));
         public IList<IWebElement> TransactionDetailsTableValues => _driver.FindElements(By.XPath("//table//td[preceding-sibling::*]"));
 
-        private IWebElement AccountNumberLink(string number) => _driver.FindElement(By.XPath($"(//table[@id='accountTable']//a)[{number}]"));
-        private IWebElement TransactionNumberLink(string number) => _driver.FindElement(By.XPath($"(//table[@id='transactionTable']//a)[{number}]"));
+        private IWebElement AccountNumberLink(string accountNumber) => _driver.FindElement(By.XPath($"(//table[@id='accountTable']//a)[.='{accountNumber}']"));
+        private IWebElement TransactionNumberLink(string transactionName) => _driver.FindElement(By.XPath($"(//table[@id='transactionTable']//a)[.='{transactionName}']"));
 
-        public AccountDetailsPage ClickOnAccountLink(string number)
+        public AccountDetailsPage ClickOnAccountLink(string accountNumber)
         {
-            AccountNumberLink(number).Click();
+            AccountNumberLink(accountNumber).Click();
             return this;
         }
 
-        public AccountDetailsPage ClickOnTransactionLink(string number)
+        public AccountDetailsPage ClickOnTransactionLink(string transactionName)
         {
-            TransactionNumberLink(number).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
+            TransactionNumberLink(transactionName).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 
