@@ -68,7 +68,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         [AfterScenario]
         public void CleanUp(ScenarioContext scenarioContext)
         {
-            DBHook.CleanupUsers();
+            DBHook.CleanupUsers(scenarioContext);
             DBHook.CloseConnection();
             ReportHelper.ProduceReport(scenarioContext, _driver);
 

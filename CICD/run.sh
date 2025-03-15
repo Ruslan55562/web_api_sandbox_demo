@@ -21,11 +21,11 @@ run_tests() {
 
         echo "------------------------------------------------------"
         echo "Running API tests..."
-        dotnet test ../web_api_sandbox_demo/sandbox_demo_API/sandbox_demo_API.csproj
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_API/sandbox_demo_API.csproj 2>/dev/null
 
         echo "------------------------------------------------------"
         echo "Running UI tests..."
-        dotnet test ../web_api_sandbox_demo/sandbox_demo_UI/sandbox_demo_UI.csproj
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_UI/sandbox_demo_UI.csproj 2>/dev/null
 
         echo "------------------------------------------------------"
     else
