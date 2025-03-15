@@ -29,13 +29,9 @@ namespace sandbox_demo_Shared.Configs
             return Environment.GetEnvironmentVariable("HSQLDB_USER") ?? _configuration.Value["HsqldbSettings:User"];
         }
 
-
         public static string? GetPassword()
         {
-            var password = Environment.GetEnvironmentVariable("HSQLDB_PASSWORD");
-            password ??= _configuration.Value["HsqldbSettings:Password"];
-
-            return password;
+            return Environment.GetEnvironmentVariable("HSQLDB_PASSWORD") ?? _configuration.Value["HsqldbSettings:Password"];
         }
 
         public static string? GetBaseUrl()
