@@ -33,12 +33,7 @@ namespace sandbox_demo_Shared.Configs
         public static string? GetPassword()
         {
             var password = Environment.GetEnvironmentVariable("HSQLDB_PASSWORD");
-
-            if (password == "empty")
-                password = string.Empty;
-
-            if (password == null)
-                password = _configuration.Value["HsqldbSettings:Password"];
+            password ??= _configuration.Value["HsqldbSettings:Password"];
 
             return password;
         }
