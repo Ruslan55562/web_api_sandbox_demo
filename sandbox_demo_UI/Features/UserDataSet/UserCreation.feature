@@ -9,7 +9,7 @@ Background:
 	Given I open Main page
 		And I click on 'Register' button
 
-@RGU1
+@RGU1 @UserCreation
 Scenario: The user with correct data is created
 	When I fill in input fields with the next data
 		| First Name | Last Name | Address        | City        | State | Zip Code | Phone        | SSN         | Username | Password          | Confirm           |
@@ -18,7 +18,7 @@ Scenario: The user with correct data is created
 	Then I can see welcome 'Welcome johndoe' message
 		And I can see 'Welcome John Doe' message above the nav panel
 
-@RGU2
+@RGU2 @UserCreation
 Scenario: The user with duplicated name isn't created
 	When I fill in input fields with the next data
 		| First Name | Last Name | Address       | City      | State | Zip Code | Phone        | SSN         | Username         | Password       | Confirm        |
@@ -32,7 +32,7 @@ Scenario: The user with duplicated name isn't created
 		And I send the registration form
 	Then The error message 'This username already exists' is displayed
 
-@RGU3
+@RGU3 @UserCreation
 Scenario: The user isn't created if password field is empty
 	When I fill in input fields with the next data
 		| First Name  | Last Name   | Address        | City     | State | Zip Code | Phone        | SSN         | Username    | Password | Confirm |
@@ -41,7 +41,7 @@ Scenario: The user isn't created if password field is empty
 	Then The error message 'Password is required' is displayed
 		And The error message 'Password confirmation is required' is displayed
 
-@RGU4
+@RGU4 @UserCreation
 Scenario: The user isn't created if password isn't confirmed
 	When I fill in input fields with the next data
 		| First Name  | Last Name   | Address        | City     | State | Zip Code | Phone        | SSN         | Username    | Password          | Confirm |

@@ -1,6 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
-using web_api_sandbox_demo_UI.CommonPageSpace;
+﻿using OpenQA.Selenium;
 using web_api_sandbox_demo_UI.Helpers;
 
 namespace web_api_sandbox_demo_UI.POM.AccountServices
@@ -60,7 +58,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         public AccountServicesPage GoToAccountServicesPage(string pageName)
         {
-            AccountServicesNavigationOption(pageName).Click();
+            AccountServicesNavigationOption(pageName).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 
@@ -183,7 +181,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         private AccountServicesPage PressSubmitButton()
         {
-            SubmitButton.Click();
+            SubmitButton.ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
     }

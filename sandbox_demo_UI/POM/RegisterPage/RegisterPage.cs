@@ -26,7 +26,7 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
         public RegisterPage ClickOnRegisterButton(string text)
         {
-            ButtonByText(text).Click();
+            ButtonByText(text).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 

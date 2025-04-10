@@ -19,12 +19,40 @@ run_tests() {
     if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
         echo "Container $CONTAINER_NAME is running. Proceeding with tests."
 
+        sed -i "s/\[assembly: LevelOfParallelism([0-9]*)\]/\[assembly: LevelOfParallelism(1)\]/" ../web_api_sandbox_demo/sandbox_demo_UI/Properties/AssemblyInfo.cs
+
         echo "------------------------------------------------------"
         echo "Running API tests..."
         dotnet test ../web_api_sandbox_demo/sandbox_demo_API/sandbox_demo_API.csproj --nologo -warnaserror:false 2>/dev/null
 
         echo "------------------------------------------------------"
         echo "Running UI tests..."
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_UI/sandbox_demo_UI.csproj --nologo -warnaserror:false 2>/dev/null
+
+        echo "------------------------------------------------------"
+    else
+        echo "Container $CONTAINER_NAME is not running. Please start the container first."
+    fi
+}
+
+run_tests_in_parallel() {
+    read -p "Enter the number of threads (1 to 4): " threads
+
+    if ((threads < 1 || threads > 4)); then
+        echo "Invalid number of threads. Please enter a value between 1 and 4."
+        return
+    fi
+
+    if [ "$(docker ps -q -f name=$CONTAINER_NAME)" ]; then
+
+        sed -i "s/\[assembly: LevelOfParallelism([0-9]*)\]/\[assembly: LevelOfParallelism($threads)\]/" ../web_api_sandbox_demo/sandbox_demo_UI/Properties/AssemblyInfo.cs
+
+        echo "------------------------------------------------------"
+        echo "Running API tests..."
+        dotnet test ../web_api_sandbox_demo/sandbox_demo_API/sandbox_demo_API.csproj --nologo -warnaserror:false 2>/dev/null
+
+        echo "------------------------------------------------------"
+        echo "Running UI tests with $threads threads..."
         dotnet test ../web_api_sandbox_demo/sandbox_demo_UI/sandbox_demo_UI.csproj --nologo -warnaserror:false 2>/dev/null
 
         echo "------------------------------------------------------"
@@ -42,8 +70,9 @@ echo "Select an option:"
 echo "1. Build and run the parabank application"
 echo "2. Run the parabank application"
 echo "3. Run all tests (API & UI)"
+echo "4. Run all tests in parallel"
 
-read -p "Enter option number (1, 2, or 3): " choice
+read -p "Enter option number (1, 2, 3, or 4): " choice
 
 case $choice in
     1)
@@ -67,7 +96,10 @@ case $choice in
     3)
         run_tests
         ;;
+    4)
+        run_tests_in_parallel
+        ;;
     *)
-        echo "Invalid input. Please choose 1, 2, or 3."
+        echo "Invalid input. Please choose 1, 2, 3, or 4."
         ;;
 esac

@@ -30,7 +30,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountDetails
 
         public AccountDetailsPage ClickOnAccountLink(string accountNumber)
         {
-            AccountNumberLink(accountNumber).Click();
+            AccountNumberLink(accountNumber).ClickButtonWithWait(_driver, TimeSpan.FromSeconds(0.5));
             return this;
         }
 

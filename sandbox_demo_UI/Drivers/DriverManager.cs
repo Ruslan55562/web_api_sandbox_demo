@@ -38,7 +38,8 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             ReportHelper.CreateTest(scenarioContext);
             SelectBrowser();
-            DBHook.OpenConnection();
+            if (scenarioContext.ScenarioInfo.Tags.Contains("UserCreation"))
+                DBHook.OpenConnection();
         }
 
         public void SelectBrowser()
@@ -68,8 +69,12 @@ namespace web_api_sandbox_demo_UI_Drivers
         [AfterScenario]
         public void CleanUp(ScenarioContext scenarioContext)
         {
-            DBHook.CleanupUsers(scenarioContext);
-            DBHook.CloseConnection();
+            if (scenarioContext.ScenarioInfo.Tags.Contains("UserCreation"))
+            {
+                DBHook.CleanupUsers(scenarioContext);
+                DBHook.CloseConnection();
+            }
+
             ReportHelper.ProduceReport(scenarioContext, _driver);
 
             if (_driver != null)
