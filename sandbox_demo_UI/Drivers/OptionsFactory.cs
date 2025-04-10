@@ -6,7 +6,7 @@ namespace web_api_sandbox_demo_UI_Drivers
 {
     public class OptionsFactory
     {
-        public ChromeOptions GetChromeOptions(bool headless = true)
+        public ChromeOptions GetChromeOptions()
         {
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
@@ -14,30 +14,27 @@ namespace web_api_sandbox_demo_UI_Drivers
             options.AddArgument("--disable-popup-blocking");
             options.AddArgument("--disable-extensions");
             options.AddArgument("--incognito");
-            if (headless)
-                options.AddArgument("--headless");
+            options.AddArgument("--headless");
 
             return options;
         }
 
-        public FirefoxOptions GetFirefoxOptions(bool headless = false)
+        public FirefoxOptions GetFirefoxOptions()
         {
             var options = new FirefoxOptions();
             options.AcceptInsecureCertificates = true;
             options.AddArgument("--start-maximized");
-            if (headless)
-                options.AddArgument("--headless");
+            options.AddArgument("--headless");
 
             return options;
         }
 
-        public EdgeOptions GetEdgeOptions(bool headless = false)
+        public EdgeOptions GetEdgeOptions()
         {
             var options = new EdgeOptions();
             options.AcceptInsecureCertificates = true;
             options.AddArgument("--start-maximized");
-            if (headless)
-                options.AddArgument("--headless");
+            options.AddArgument("--headless");
 
             return options;
         }
