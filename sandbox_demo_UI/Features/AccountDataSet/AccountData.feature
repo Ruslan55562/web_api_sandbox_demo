@@ -7,7 +7,7 @@ So I can do transfers between accounts or pay a bill
 Background: 
 	Given I open Main page
 
-@ACU-1
+@ACU-1 @UserCreation
 Scenario: Associated with the user account is created
 	When I click on 'Admin Page' navigation button
 	    And I update initial balance to '600' and minumum balance to '130'

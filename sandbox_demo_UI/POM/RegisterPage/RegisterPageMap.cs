@@ -1,5 +1,7 @@
-﻿using Reqnroll.BoDi;
+﻿using OpenQA.Selenium.Support.UI;
+using Reqnroll.BoDi;
 using sandbox_demo_UI.PageForms;
+using SeleniumExtras.WaitHelpers;
 using web_api_sandbox_demo_UI.CommonPageSpace;
 using web_api_sandbox_demo_UI.Helpers;
 using web_api_sandbox_demo_UI_Drivers;
@@ -26,7 +28,12 @@ namespace web_api_sandbox_demo_UI.POM.RegisterPage
 
                 if (formData.TryGetValue(fieldName, out var value))
                 {
-                    registerPage.InputFields(fieldId).SendTextToInput(DriverManager.GetDriverInstance(), value);
+                    var inputField = registerPage.InputFields(fieldId);
+                    var driver = DriverManager.GetDriverInstance();
+                    var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(0.5));
+                    wait.Until(ExpectedConditions.ElementToBeClickable(inputField));
+
+                    inputField.SendTextToInput(driver, value);
 
                     if (fieldName == "Username")
                     {

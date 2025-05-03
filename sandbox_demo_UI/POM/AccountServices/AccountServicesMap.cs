@@ -29,5 +29,19 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
             return this;
         }
+
+        public List<string> GetAccountTableData(Table balanceData, AccountServicesPage page)
+        {
+            var accountDetailsData = balanceData.Rows[0];
+            var expectedHeaders = accountDetailsData.Keys.ToList();
+            var expectedValues = accountDetailsData.Values.ToList();
+
+            return new List<string>
+            {
+                page.BalanceInTableValue(expectedHeaders[0], expectedValues[0]).Text,
+                page.AvailableAmountInTableValue(expectedHeaders[1], expectedValues[1]).Text,
+                page.TotalInTableValue(expectedHeaders[2], expectedValues[2]).Text
+            };
+        }
     }
 }

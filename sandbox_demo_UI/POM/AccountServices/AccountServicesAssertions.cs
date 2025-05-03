@@ -19,7 +19,7 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
             {
                 { "Loan Provider", loanResponse.Rows[0]["Loan Provider"] },
                 { "Status", loanResponse.Rows[0]["Status"] },
-                { "Loan Response Date", DateTime.Now.ToString("MM-dd-yyyy") }
+                { "Loan Response Date", DateTime.Now.ToString("MM-d-yyyy") }
             };
 
             foreach (var key in expectedValues.Keys)

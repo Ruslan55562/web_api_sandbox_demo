@@ -64,15 +64,9 @@ namespace web_api_sandbox_demo_UI.POM.AccountServices
 
         public AccountServicesPage VerifyAccountTableData(Table balanceData)
         {
-            var accountDetailsData = balanceData.Rows[0];
-            var expectedHeaders = accountDetailsData.Keys.ToList();
-            var expectedValues = accountDetailsData.Values.ToList();
-            var actualValues = new List<string>
-            {
-                BalanceInTableValue(expectedHeaders[0], expectedValues[0]).Text,
-                AvailableAmountInTableValue(expectedHeaders[1], expectedValues[1]).Text,
-                TotalInTableValue(expectedHeaders[2], expectedValues[2]).Text
-            };
+            var actualValues = _accountServicesMap.GetAccountTableData(balanceData, this);
+            var expectedHeaders = balanceData.Rows[0].Keys.ToList();
+            var expectedValues = balanceData.Rows[0].Values.ToList();
 
             for (int i = 0; i < expectedHeaders.Count; i++)
             {

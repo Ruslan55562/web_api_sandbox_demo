@@ -23,7 +23,7 @@ namespace web_api_sandbox_demo_UI_Drivers
         {
             _objectContainer = objectContainer;
             _configuration = AppConfig.GetConfiguration();
-            _driverFactory = new DriverFactory();
+            _driverFactory = new DriverFactory(_configuration);
             _baseUrl = _configuration["BrowserSettings:BaseUrl"];
         }
 
@@ -44,8 +44,7 @@ namespace web_api_sandbox_demo_UI_Drivers
 
         public void SelectBrowser()
         {
-            string browser = _configuration["BrowserSettings:Browser"]?.ToLower() ?? "chrome";
-            _driver = _driverFactory.InitDriver(browser);
+            _driver = _driverFactory.InitDriver();
             CurrentDriver = _driver;
             _objectContainer.RegisterInstanceAs<IWebDriver>(_driver);
         }
