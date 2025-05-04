@@ -26,11 +26,11 @@ This project contains the Parabank application along with API and UI test framew
 ## Prerequisites
 
 - **Docker**: Ensure Docker is installed and running on your system. [Get Docker](https://www.docker.com/get-started).
-- **Environment Variables**: The following environment variables need to be set for HSQLDB:
+- **.env file**: .env file must be created in the root directory of the project. The following variables need to be set for HSQLDB:
 
   ```plaintext
   HSQLDB_USER=sa
-  HSQLDB_PASSWORD=empty
+  HSQLDB_PASSWORD=
    ```
 ## Installation
 ### Clone the Repository:
@@ -106,6 +106,31 @@ You can select between the following test projects:
 
 After running the tests, a report will be generated automatically and saved in the `Reports` folder of the Shared project.
 
+The second option for running tests is to run the tests through a script. There are two types of launching single-threaded and multi-threaded. Let's describe the steps to be performed for both options:
+ ```bash
+./CICD/run.sh
+ ```
+After that we see the following input options, options 3 and 4 are responsible for running the tests:
+ ```bash
+Select an option:
+1. Build and run the parabank application
+2. Run the parabank application
+3. Run all tests (API & UI)
+4. Run all tests in parallel
+Enter option number (1, 2, 3, or 4):
+ ```
+When option 3 is selected, the tests are simply run one by one and we wait for the run result.
+If you select option 4, you are also offered to select the number of threads for running tests. At the moment the maximum number of threads is four. It looks as follows:
+ ```bash
+Select an option:
+1. Build and run the parabank application
+2. Run the parabank application
+3. Run all tests (API & UI)
+4. Run all tests in parallel
+Enter option number (1, 2, 3, or 4): 4
+Enter the number of threads (1 to 4): 3
+ ```
+In the above example, the tests will be run in three-threaded mode. Also, there is an important point. By default in appsettings I've set the UI tests to run in headless mode, which means that they will run in the backgroud. If you want to change this just delete this line in appsettings
 ## Contributing
 
 Contributions are welcome! Please follow these steps to contribute to the project:
